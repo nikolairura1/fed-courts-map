@@ -3813,125 +3813,125 @@
         }
       ]
     },
-    "67": {
-      "district_name": "Pennsylvania Eastern",
-      "wikipedia_title": "United States District Court for the Eastern District of Pennsylvania",
-      "judges": [
-        {
-          "name": "Wendy Beetlestone",
-          "status": "Active",
-          "appointed_by": "Barack Obama",
-          "assumed_office": "2014-02-28",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Judge_Wendy_Beetlestone.png/250px-Judge_Wendy_Beetlestone.png",
-          "education": "University of Liverpool (BA); University of Pennsylvania Law School (JD)",
-          "wiki_title": "Wendy Beetlestone"
-        },
-        {
-          "name": "Paul S. Diamond",
-          "status": "Active",
-          "appointed_by": "George W. Bush",
-          "assumed_office": "2004-06-07",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Paul_S._Diamond.jpg/250px-Paul_S._Diamond.jpg",
-          "education": "Columbia University (BA); University of Pennsylvania Law School (JD)",
-          "wiki_title": "Paul S. Diamond"
-        },
-        {
-          "name": "Nitza Quiñones Alejandro",
-          "status": "Active",
-          "appointed_by": "Barack Obama",
-          "assumed_office": "2016-04-26",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Nitza_Quinones_Alejandro.jpg/250px-Nitza_Quinones_Alejandro.jpg",
-          "education": "Rutgers University (BA); Rutgers Law School (JD)",
-          "wiki_title": "Nitza Quiñones Alejandro"
-        },
-        {
-          "name": "Jeffrey L. Schmehl",
-          "status": "Active",
-          "appointed_by": "George W. Bush",
-          "assumed_office": "2006-03-06",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Jeffrey_L._Schmehl.jpg/250px-Jeffrey_L._Schmehl.jpg",
-          "education": "University of Notre Dame (BA); Villanova University School of Law (JD)",
-          "wiki_title": "Jeffrey L. Schmehl"
-        },
-        {
-          "name": "Gerald A. McHugh Jr.",
-          "status": "Active",
-          "appointed_by": "Barack Obama",
-          "assumed_office": "2014-06-02",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Gerald_A._McHugh_Jr.jpg/250px-Gerald_A._McHugh_Jr.jpg",
-          "education": "Temple University (BA); University of Pennsylvania Law School (JD)",
-          "wiki_title": "Gerald A. McHugh Jr."
-        },
-        {
-          "name": "Mark A. Kearney",
-          "status": "Active",
-          "appointed_by": "Barack Obama",
-          "assumed_office": "2014-06-30",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Mark_A._Kearney.jpg/250px-Mark_A._Kearney.jpg",
-          "education": "Villanova University (BA); Villanova University School of Law (JD)",
-          "wiki_title": "Mark A. Kearney"
-        },
-        {
-          "name": "Joseph F. Leeson Jr.",
-          "status": "Active",
-          "appointed_by": "Donald Trump",
-          "assumed_office": "2018-02-15",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Joseph_F._Leeson_Jr.jpg/250px-Joseph_F._Leeson_Jr.jpg",
-          "education": "Moravian College (BA); Temple University School of Law (JD)",
-          "wiki_title": "Joseph F. Leeson Jr."
-        },
-        {
-          "name": "Chad F. Kenney",
-          "status": "Active",
-          "appointed_by": "Donald Trump",
-          "assumed_office": "2019-09-04",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Chad_F._Kenney.jpg/250px-Chad_F._Kenney.jpg",
-          "education": "King's College (BA); Dickinson School of Law (JD)",
-          "wiki_title": "Chad F. Kenney"
-        },
-        {
-          "name": "Karen S. Marston",
-          "status": "Active",
-          "appointed_by": "Donald Trump",
-          "assumed_office": "2019-09-04",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Karen_S._Marston.jpg/250px-Karen_S._Marston.jpg",
-          "education": "Columbia University (BA); Yale Law School (JD)",
-          "wiki_title": "Karen S. Marston"
-        },
-        {
-          "name": "John M. Gallagher",
-          "status": "Active",
-          "appointed_by": "Joe Biden",
-          "assumed_office": "2023-07-26",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/John_M._Gallagher.jpg/250px-John_M._Gallagher.jpg",
-          "education": "La Salle University (BA); Villanova University School of Law (JD)",
-          "wiki_title": "John M. Gallagher"
-        },
-        {
-          "name": "Mia Roberts Perez",
-          "status": "Active",
-          "appointed_by": "Joe Biden",
-          "assumed_office": "2023-09-18",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Mia_Roberts_Perez.jpg/250px-Mia_Roberts_Perez.jpg",
-          "education": "Yale University (BA); Yale Law School (JD)",
-          "wiki_title": "Mia Roberts Perez"
-        },
-        {
-          "name": "Kelley B. Hodge",
-          "status": "Active",
-          "appointed_by": "Joe Biden",
-          "assumed_office": "2024-03-14",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Kelley_B._Hodge.jpg/250px-Kelley_B._Hodge.jpg",
-          "education": "University of North Carolina (BA); Harvard Law School (JD)",
-          "wiki_title": "Kelley B. Hodge"
-        },
-            {
+"67": {
+  "district_name": "Pennsylvania Eastern",
+  "wikipedia_title": "United States District Court for the Eastern District of Pennsylvania",
+  "judges": [
+    {
+      "name": "Wendy Beetlestone",
+      "status": "Active",
+      "appointed_by": "Barack Obama",
+      "assumed_office": "2014-02-28",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Judge_Wendy_Beetlestone.png/250px-Judge_Wendy_Beetlestone.png",
+      "education": "University of Liverpool (BA); University of Pennsylvania Law School (JD)",
+      "wiki_title": "Wendy Beetlestone"
+    },
+    {
+      "name": "Paul S. Diamond",
+      "status": "Active",
+      "appointed_by": "George W. Bush",
+      "assumed_office": "2004-06-07",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Paul_S._Diamond.jpg/250px-Paul_S._Diamond.jpg",
+      "education": "Columbia University (BA); University of Pennsylvania Law School (JD)",
+      "wiki_title": "Paul S. Diamond"
+    },
+    {
+      "name": "Nitza Quiñones Alejandro",
+      "status": "Active",
+      "appointed_by": "Barack Obama",
+      "assumed_office": "2016-04-26",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Nitza_Quinones_Alejandro.jpg/250px-Nitza_Quinones_Alejandro.jpg",
+      "education": "University of Puerto Rico, School of Business Administration (BBA); University of Puerto Rico School of Law (JD)",
+      "wiki_title": "Nitza Quiñones Alejandro"
+    },
+    {
+      "name": "Jeffrey L. Schmehl",
+      "status": "Active",
+      "appointed_by": "George W. Bush",
+      "assumed_office": "2006-03-06",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Jeffrey_L._Schmehl.jpg/250px-Jeffrey_L._Schmehl.jpg",
+      "education": "Dickinson College (BA); University of Toledo College of Law (JD)",
+      "wiki_title": "Jeffrey L. Schmehl"
+    },
+    {
+      "name": "Gerald A. McHugh Jr.",
+      "status": "Active",
+      "appointed_by": "Barack Obama",
+      "assumed_office": "2014-06-02",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Gerald_A._McHugh_Jr.jpg/250px-Gerald_A._McHugh_Jr.jpg",
+      "education": "Saint Joseph's University (AB); University of Pennsylvania Law School (JD)",
+      "wiki_title": "Gerald A. McHugh Jr."
+    },
+    {
+      "name": "Mark A. Kearney",
+      "status": "Active",
+      "appointed_by": "Barack Obama",
+      "assumed_office": "2014-06-30",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Mark_A._Kearney.jpg/250px-Mark_A._Kearney.jpg",
+      "education": "Villanova University (BA); Villanova University School of Law (JD)",
+      "wiki_title": "Mark A. Kearney"
+    },
+    {
+      "name": "Joseph F. Leeson Jr.",
+      "status": "Active",
+      "appointed_by": "Donald Trump",
+      "assumed_office": "2018-02-15",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Joseph_F._Leeson_Jr.jpg/250px-Joseph_F._Leeson_Jr.jpg",
+      "education": "DeSales University (BA); Catholic University of America, Columbus School of Law (JD)",
+      "wiki_title": "Joseph F. Leeson Jr."
+    },
+    {
+      "name": "Chad F. Kenney",
+      "status": "Active",
+      "appointed_by": "Donald Trump",
+      "assumed_office": "2019-09-04",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Chad_F._Kenney.jpg/250px-Chad_F._Kenney.jpg",
+      "education": "Villanova University (BA); Temple University School of Law (JD)",
+      "wiki_title": "Chad F. Kenney"
+    },
+    {
+      "name": "Karen S. Marston",
+      "status": "Active",
+      "appointed_by": "Donald Trump",
+      "assumed_office": "2019-09-04",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Karen_S._Marston.jpg/250px-Karen_S._Marston.jpg",
+      "education": "Davidson College (BA); Wake Forest University School of Law (JD)",
+      "wiki_title": "Karen S. Marston"
+    },
+    {
+      "name": "John M. Gallagher",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "2023-07-26",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/John_M._Gallagher.jpg/250px-John_M._Gallagher.jpg",
+      "education": "Long Island University (BS); New York Law School (JD)",
+      "wiki_title": "John M. Gallagher"
+    },
+    {
+      "name": "Mia Roberts Perez",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "2023-09-18",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Mia_Roberts_Perez.jpg/250px-Mia_Roberts_Perez.jpg",
+      "education": "Tufts University (BA); Temple University Beasley School of Law (JD)",
+      "wiki_title": "Mia Roberts Perez"
+    },
+    {
+      "name": "Kelley B. Hodge",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "2024-03-14",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Kelley_B._Hodge.jpg/250px-Kelley_B._Hodge.jpg",
+      "education": "University of Virginia (BA); University of Richmond T.C. Williams School of Law (JD)",
+      "wiki_title": "Kelley B. Hodge"
+    },
+    {
       "name": "Gerald J. Pappert",
       "status": "Active",
       "appointed_by": "Donald Trump",
       "assumed_office": "",
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Gerald_J._Pappert.jpg/250px-Gerald_J._Pappert.jpg",
-      "education": "Villanova University (BA) Villanova University School of Law (JD)",
+      "education": "Villanova University (BA); University of Notre Dame Law School (JD)",
       "wiki_title": "Gerald J. Pappert"
     },
     {
@@ -3940,74 +3940,56 @@
       "appointed_by": "Joe Biden",
       "assumed_office": "",
       "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Joshua_D._Wolson.jpg/250px-Joshua_D._Wolson.jpg",
-      "education": "Harvard University (BA) Yale Law School (JD)",
-      "wiki_title": "Joshua D. Wolson"
+      "education": "University of Pennsylvania (BA); Harvard Law School (JD)",
+      "wiki_title": "Joshua Wolson"
     },
     {
-      "name": "Chad F. Kenney Younge",
+      "name": "John Milton Younge",
       "status": "Active",
       "appointed_by": "Joe Biden",
       "assumed_office": "",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Chad_Younge.jpg/250px-Chad_Younge.jpg",
-      "education": "Morehouse College (BA) Temple University Beasley School of Law (JD)",
-      "wiki_title": "Chad Younge"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/John_Milton_Younge.jpg/250px-John_Milton_Younge.jpg",
+      "education": "Boston University (BA); Howard University School of Law (JD); University of Nevada, Reno (MJS)",
+      "wiki_title": "John_Milton_Younge"
     },
     {
-      "name": "John M. Murphy",
+      "name": "John Frank Murphy",
       "status": "Active",
       "appointed_by": "Joe Biden",
       "assumed_office": "",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/John_M._Murphy_Judge.jpg/250px-John_M._Murphy_Judge.jpg",
-      "education": "Boston College (BA) Villanova University School of Law (JD)",
-      "wiki_title": "John M. Murphy (judge)"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/John_Frank_Murphy.jpg/250px-John_Frank_Murphy.jpg",
+      "education": "Cornell University (BS); California Institute of Technology (MS, PhD); Harvard Law School (JD)",
+      "wiki_title": "John_Frank_Murphy"
     },
     {
-      "name": "Karen S. Marston Scott",
+      "name": "Mary Kay Costello",
       "status": "Active",
       "appointed_by": "Joe Biden",
       "assumed_office": "",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Karen_S._Marston.jpg/250px-Karen_S._Marston.jpg",
-      "education": "Princeton University (BA) Yale Law School (JD)",
-      "wiki_title": "Karen S. Marston"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Mary_Kay_Costello.jpg/250px-Mary_Kay_Costello.jpg",
+      "education": "Temple University (BA); Temple University Beasley School of Law (JD)",
+      "wiki_title": "Mary_Kay_Costello"
     },
     {
-      "name": "Keli M. Neary Costello",
+      "name": "Catherine Henry",
       "status": "Active",
       "appointed_by": "Joe Biden",
       "assumed_office": "",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Keli_M._Costello.jpg/250px-Keli_M._Costello.jpg",
-      "education": "University of Pennsylvania (BA) University of Pennsylvania Carey Law School (JD)",
-      "wiki_title": "Keli M. Costello"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Catherine_Henry.jpg/250px-Catherine_Henry.jpg",
+      "education": "Drew University (BA); District of Columbia School of Law (JD)",
+      "wiki_title": "Catherine_Henry"
     },
     {
-      "name": "T. S. Ellis Henry",
+      "name": "Gail A. Weilheimer",
       "status": "Active",
       "appointed_by": "Joe Biden",
       "assumed_office": "",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Thomas_S._Henry_Judge.jpg/250px-Thomas_S._Henry_Judge.jpg",
-      "education": "University of Delaware (BA) Villanova University School of Law (JD)",
-      "wiki_title": "Thomas S. Henry"
-    },
-    {
-      "name": "Ryan D. Weilheimer",
-      "status": "Active",
-      "appointed_by": "Joe Biden",
-      "assumed_office": "",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ryan_D._Weilheimer.jpg/250px-Ryan_D._Weilheimer.jpg",
-      "education": "University of Pennsylvania (BA) University of Virginia School of Law (JD)",
-      "wiki_title": "Ryan D. Weilheimer"
-    },
-    {
-      "name": "Juan R. Sánchez",
-      "status": "Active",
-      "appointed_by": "Barack Obama",
-      "assumed_office": "",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Juan_R._Sanchez.jpg/250px-Juan_R._Sanchez.jpg",
-      "education": "Villanova University (BA) University of Pennsylvania Carey Law School (JD)",
-      "wiki_title": "Juan R. Sánchez"
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Gail_A._Weilheimer.jpg/250px-Gail_A._Weilheimer.jpg",
+      "education": "Hofstra University (BA); Hofstra University School of Law (JD)",
+      "wiki_title": "Gail_A._Weilheimer"
     }
   ]
-    },
+},
     "68": {
       "district_name": "Pennsylvania Middle",
       "wikipedia_title": "United States District Court for the Middle District of Pennsylvania",
