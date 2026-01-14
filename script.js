@@ -18,6 +18,107 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   msg.textContent = "✅ Leaflet + topojson-client loaded";
 
+// -------------------- MOBILE-SAFE POPUP (drop-in) --------------------
+function ensureJudgePopup() {
+  let popup = document.getElementById("judge-popup");
+  let backdrop = document.getElementById("judge-popup-backdrop");
+
+  if (!backdrop) {
+    backdrop = document.createElement("div");
+    backdrop.id = "judge-popup-backdrop";
+    Object.assign(backdrop.style, {
+      position: "fixed",
+      inset: "0",
+      background: "rgba(0,0,0,0.35)",
+      zIndex: "9998",
+      display: "none",
+      touchAction: "none"
+    });
+    backdrop.addEventListener("click", () => hideJudgePopup());
+    document.body.appendChild(backdrop);
+  }
+
+  if (!popup) {
+    popup = document.createElement("div");
+    popup.id = "judge-popup";
+    Object.assign(popup.style, {
+      position: "fixed",
+      top: "8vh",
+      left: "5vw",
+      width: "90vw",
+      height: "84vh",
+      background: "white",
+      border: "1px solid #111",
+      borderRadius: "10px",
+      padding: "12px",
+      overflow: "auto",
+      zIndex: "9999",
+      display: "none",
+      WebkitOverflowScrolling: "touch", // smooth iOS scroll
+      touchAction: "pan-y"              // allow scrolling inside popup
+    });
+
+    // Close button (not inline onclick)
+    const closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.textContent = "Close";
+    closeBtn.id = "judge-popup-close";
+    Object.assign(closeBtn.style, {
+      position: "sticky",
+      top: "0",
+      float: "right",
+      padding: "8px 12px",
+      margin: "0 0 10px 10px",
+      border: "1px solid #999",
+      borderRadius: "8px",
+      background: "#f5f5f5",
+      cursor: "pointer",
+      zIndex: "10000"
+    });
+    closeBtn.addEventListener("click", () => hideJudgePopup());
+
+    // Content container
+    const content = document.createElement("div");
+    content.id = "judge-popup-content";
+
+    popup.appendChild(closeBtn);
+    popup.appendChild(content);
+    document.body.appendChild(popup);
+  }
+
+  // ESC to close (desktop)
+  if (!window.__judgePopupEscHooked) {
+    window.__judgePopupEscHooked = true;
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") hideJudgePopup();
+    });
+  }
+
+  return { popup, backdrop };
+}
+
+function showJudgePopup(html) {
+  const { popup, backdrop } = ensureJudgePopup();
+  const content = document.getElementById("judge-popup-content");
+  content.innerHTML = html;
+
+  backdrop.style.display = "block";
+  popup.style.display = "block";
+
+  // Prevent map from eating taps while popup is open
+  document.body.style.overflow = "hidden";
+}
+
+function hideJudgePopup() {
+  const popup = document.getElementById("judge-popup");
+  const backdrop = document.getElementById("judge-popup-backdrop");
+  if (popup) popup.style.display = "none";
+  if (backdrop) backdrop.style.display = "none";
+  document.body.style.overflow = "";
+}
+// --------------------------------------------------------------------
+
+
   // --------------------------------------------------------------------------
   // Portrait helpers
   // --------------------------------------------------------------------------
@@ -173,12 +274,14 @@ window.handlePortraitError = async function (imgEl) {
     const us = await usRes.json();
     judges = await judgesRes.json();
 
+    console.log('by_circuit keys:', Object.keys(judges.by_circuit || {}));
+
     msg.textContent = `✅ Loaded us.json + judges.json (updated: ${judges.last_updated_utc})`;
 
     districtsGeoJSON = topojson.feature(us, us.objects.districts);
 
     jdcodeToCircuit = {
-      1:11,2:11,3:11,4:9,5:9,6:8,7:8,8:9,9:9,10:9,11:9,12:10,13:2,14:3,15:11,16:11,17:11,18:11,19:11,20:11,21:11,22:9,23:9,24:7,25:7,26:7,27:7,28:7,29:8,30:8,31:10,32:6,33:6,34:5,35:5,36:5,37:1,38:4,39:1,40:6,41:6,42:8,43:5,44:5,45:8,46:8,47:9,48:8,49:9,50:1,51:3,52:10,53:2,54:2,55:2,56:2,57:4,58:4,59:4,60:8,61:6,62:6,63:10,64:10,65:10,66:9,67:3,68:3,69:3,70:1,71:4,72:8,73:6,74:6,75:6,76:5,77:5,78:5,79:5,80:10,81:2,82:4,83:4,84:9,85:9,86:4,87:4,88:7,89:7,90:10
+      0:12,1:11,2:11,3:11,4:9,5:9,6:8,7:8,8:9,9:9,10:9,11:9,12:10,13:2,14:3,15:11,16:11,17:11,18:11,19:11,20:11,21:11,22:9,23:9,24:7,25:7,26:7,27:7,28:7,29:8,30:8,31:10,32:6,33:6,34:5,35:5,36:5,37:1,38:4,39:1,40:6,41:6,42:8,43:5,44:5,45:8,46:8,47:9,48:8,49:9,50:1,51:3,52:10,53:2,54:2,55:2,56:2,57:4,58:4,59:4,60:8,61:6,62:6,63:10,64:10,65:10,66:9,67:3,68:3,69:3,70:1,71:4,72:8,73:6,74:6,75:6,76:5,77:5,78:5,79:5,80:10,81:2,82:4,83:4,84:9,85:9,86:4,87:4,88:7,89:7,90:10
     };
 
     circuitColors = {
@@ -192,7 +295,8 @@ window.handlePortraitError = async function (imgEl) {
       8: "#CD5C5C",
       9: "#9ACD32",
       10: "#F0E68C",
-      11: "#20B2AA"
+      11: "#20B2AA",
+      12: "#FF6347"
     };
 
     presidentParty = {
@@ -258,22 +362,6 @@ window.handlePortraitError = async function (imgEl) {
       style: () => ({ fillColor: "#1e90ff", weight: 1, fillOpacity: 0.7 }),
       onEachFeature: (feature, l) => {
         l.on("click", () => {
-          let popup = document.getElementById("judge-popup");
-          if (!popup) {
-            popup = document.createElement("div");
-            popup.id = "judge-popup";
-            popup.style.position = "fixed";
-            popup.style.top = "10%";
-            popup.style.left = "10%";
-            popup.style.width = "80%";
-            popup.style.height = "80%";
-            popup.style.background = "white";
-            popup.style.border = "1px solid black";
-            popup.style.padding = "10px";
-            popup.style.overflow = "auto";
-            popup.style.zIndex = "1000";
-            document.body.appendChild(popup);
-          }
           // Get SCOTUS justices from judges.by_circuit.SCOTUS
           const entry = judges.by_circuit?.SCOTUS;
           const list = entry?.judges || [];
@@ -296,8 +384,7 @@ window.handlePortraitError = async function (imgEl) {
           } else {
             htmlList = "<p>No justices found.</p>";
           }
-          popup.innerHTML = `<h2>Supreme Court of the United States</h2>${htmlList}<button onclick=\"this.parentElement.style.display='none'\">Close</button>`;
-          popup.style.display = "block";
+          showJudgePopup(`<h2>Supreme Court of the United States</h2>${htmlList}`);
         });
       }
     }).addTo(scotusMap);
@@ -316,49 +403,88 @@ window.handlePortraitError = async function (imgEl) {
           const circuit = jdcodeToCircuit[jdcode];
           const districtLabel = props.name || props.jdcode || "District";
 
+          console.log('Clicked jdcode:', jdcode, 'circuit:', circuit);
+
           const entry = judges.by_circuit?.[circuit];
+          console.log('entry:', entry);
           const list = entry?.judges || [];
 
+          console.log('Circuit:', circuit, 'List length:', list.length);
+
           let htmlList = "";
-          if (list.length) {
-            htmlList = '<table style="border-collapse: collapse; width: 100%;">';
-            htmlList +=
-              '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Education</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+          if (circuit == 12) {
+            // Show both DC and Federal circuits
+            const dcEntry = judges.by_circuit?.["12"];
+            const dcList = dcEntry?.judges || [];
+            const fedEntry = judges.by_circuit?.["13"];
+            const fedList = fedEntry?.judges || [];
 
-            list.forEach((j) => {
-              const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-              const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
-              const img = portraitHtml(j);
-              const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-              const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
-              const edu = j.education || "Not available";
-              const party = presidentParty[j.appointed_by] || "";
-              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${edu}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
-            });
+            htmlList += "<h3>District of Columbia Circuit</h3>";
+            if (dcList.length) {
+              htmlList += '<table style="border-collapse: collapse; width: 100%;">';
+              htmlList +=
+                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Education</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+              dcList.forEach((j) => {
+                const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
+                const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+                const img = portraitHtml(j);
+                const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
+                const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
+                const edu = j.education || "Not available";
+                const party = presidentParty[j.appointed_by] || "";
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${edu}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+              });
+              htmlList += "</table>";
+            } else {
+              htmlList += "<p>No judges found.</p>";
+            }
 
-            htmlList += "</table>";
+            htmlList += "<h3>Federal Circuit</h3>";
+            if (fedList.length) {
+              htmlList += '<table style="border-collapse: collapse; width: 100%;">';
+              htmlList +=
+                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Education</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+              fedList.forEach((j) => {
+                const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
+                const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+                const img = portraitHtml(j);
+                const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
+                const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
+                const edu = j.education || "Not available";
+                const party = presidentParty[j.appointed_by] || "";
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${edu}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+              });
+              htmlList += "</table>";
+            } else {
+              htmlList += "<p>No judges found.</p>";
+            }
           } else {
-            htmlList = "<p>No judges found.</p>";
+            const entry = judges.by_circuit?.[circuit];
+            const list = entry?.judges || [];
+
+            if (list.length) {
+              htmlList = '<table style="border-collapse: collapse; width: 100%;">';
+              htmlList +=
+                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Education</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+
+              list.forEach((j) => {
+                const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
+                const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+                const img = portraitHtml(j);
+                const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
+                const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
+                const edu = j.education || "Not available";
+                const party = presidentParty[j.appointed_by] || "";
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${edu}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+              });
+
+              htmlList += "</table>";
+            } else {
+              htmlList = "<p>No judges found.</p>";
+            }
           }
 
-          let popup = document.getElementById("judge-popup");
-          if (!popup) {
-            popup = document.createElement("div");
-            popup.id = "judge-popup";
-            popup.style.position = "fixed";
-            popup.style.top = "10%";
-            popup.style.left = "10%";
-            popup.style.width = "80%";
-            popup.style.height = "80%";
-            popup.style.background = "white";
-            popup.style.border = "1px solid black";
-            popup.style.padding = "10px";
-            popup.style.overflow = "auto";
-            popup.style.zIndex = "1000";
-            document.body.appendChild(popup);
-          }
-          popup.innerHTML = `<h2>Circuit ${circuit} (${districtLabel} example)</h2>${htmlList}<button onclick="this.parentElement.style.display='none'">Close</button>`;
-          popup.style.display = "block";
+          showJudgePopup(`<h2>Circuit ${circuit} (${districtLabel} example)</h2>${htmlList}`);
         });
       }
     }).addTo(circuitMap);
@@ -402,24 +528,7 @@ window.handlePortraitError = async function (imgEl) {
             htmlList = "<p>No judges found.</p>";
           }
 
-          let popup = document.getElementById("judge-popup");
-          if (!popup) {
-            popup = document.createElement("div");
-            popup.id = "judge-popup";
-            popup.style.position = "fixed";
-            popup.style.top = "10%";
-            popup.style.left = "10%";
-            popup.style.width = "80%";
-            popup.style.height = "80%";
-            popup.style.background = "white";
-            popup.style.border = "1px solid black";
-            popup.style.padding = "10px";
-            popup.style.overflow = "auto";
-            popup.style.zIndex = "1000";
-            document.body.appendChild(popup);
-          }
-          popup.innerHTML = `<h2>${districtLabel} [${jdcode}]</h2>${htmlList}<button onclick="this.parentElement.style.display='none'">Close</button>`;
-          popup.style.display = "block";
+          showJudgePopup(`<h2>${districtLabel} [${jdcode}]</h2>${htmlList}`);
         });
       }
     }).addTo(districtMap);
