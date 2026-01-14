@@ -528,7 +528,10 @@ window.handlePortraitError = async function (imgEl) {
             htmlList = "<p>No judges found.</p>";
           }
 
-          showJudgePopup(`<h2>${districtLabel} [${jdcode}]</h2>${htmlList}`);
+          const districtWikiUrl = entry?.wikipedia_title ? `https://en.wikipedia.org/wiki/${encodeURIComponent(cleanWikiTitle(entry.wikipedia_title).replace(/ /g, "_"))}` : null;
+          const districtTitle = districtWikiUrl ? `<a href="${districtWikiUrl}" target="_blank">${districtLabel}</a>` : districtLabel;
+
+          showJudgePopup(`<h2>${districtTitle} [${jdcode}]</h2>${htmlList}`);
         });
       }
     }).addTo(districtMap);
