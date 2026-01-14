@@ -3725,7 +3725,7 @@
           "assumed_office": "2020-07-20",
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/John_D._Russell.jpg/250px-John_D._Russell.jpg",
           "education": "Oklahoma State University (BS); University of Tulsa (JD)",
-          "wiki_title": "John D. Russell"
+          "wiki_title": "John_D._Russell_(judge)"
         }
       ]
     },
@@ -3924,8 +3924,89 @@
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Kelley_B._Hodge.jpg/250px-Kelley_B._Hodge.jpg",
           "education": "University of North Carolina (BA); Harvard Law School (JD)",
           "wiki_title": "Kelley B. Hodge"
-        }
-      ]
+        },
+            {
+      "name": "Gerald J. Pappert",
+      "status": "Active",
+      "appointed_by": "Donald Trump",
+      "assumed_office": "",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Gerald_J._Pappert.jpg/250px-Gerald_J._Pappert.jpg",
+      "education": "Villanova University (BA) Villanova University School of Law (JD)",
+      "wiki_title": "Gerald J. Pappert"
+    },
+    {
+      "name": "Joshua D. Wolson",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Joshua_D._Wolson.jpg/250px-Joshua_D._Wolson.jpg",
+      "education": "Harvard University (BA) Yale Law School (JD)",
+      "wiki_title": "Joshua D. Wolson"
+    },
+    {
+      "name": "Chad F. Kenney Younge",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Chad_Younge.jpg/250px-Chad_Younge.jpg",
+      "education": "Morehouse College (BA) Temple University Beasley School of Law (JD)",
+      "wiki_title": "Chad Younge"
+    },
+    {
+      "name": "John M. Murphy",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/John_M._Murphy_Judge.jpg/250px-John_M._Murphy_Judge.jpg",
+      "education": "Boston College (BA) Villanova University School of Law (JD)",
+      "wiki_title": "John M. Murphy (judge)"
+    },
+    {
+      "name": "Karen S. Marston Scott",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Karen_S._Marston.jpg/250px-Karen_S._Marston.jpg",
+      "education": "Princeton University (BA) Yale Law School (JD)",
+      "wiki_title": "Karen S. Marston"
+    },
+    {
+      "name": "Keli M. Neary Costello",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Keli_M._Costello.jpg/250px-Keli_M._Costello.jpg",
+      "education": "University of Pennsylvania (BA) University of Pennsylvania Carey Law School (JD)",
+      "wiki_title": "Keli M. Costello"
+    },
+    {
+      "name": "T. S. Ellis Henry",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Thomas_S._Henry_Judge.jpg/250px-Thomas_S._Henry_Judge.jpg",
+      "education": "University of Delaware (BA) Villanova University School of Law (JD)",
+      "wiki_title": "Thomas S. Henry"
+    },
+    {
+      "name": "Ryan D. Weilheimer",
+      "status": "Active",
+      "appointed_by": "Joe Biden",
+      "assumed_office": "",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Ryan_D._Weilheimer.jpg/250px-Ryan_D._Weilheimer.jpg",
+      "education": "University of Pennsylvania (BA) University of Virginia School of Law (JD)",
+      "wiki_title": "Ryan D. Weilheimer"
+    },
+    {
+      "name": "Juan R. Sánchez",
+      "status": "Active",
+      "appointed_by": "Barack Obama",
+      "assumed_office": "",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Juan_R._Sanchez.jpg/250px-Juan_R._Sanchez.jpg",
+      "education": "Villanova University (BA) University of Pennsylvania Carey Law School (JD)",
+      "wiki_title": "Juan R. Sánchez"
+    }
+  ]
     },
     "68": {
       "district_name": "Pennsylvania Middle",
