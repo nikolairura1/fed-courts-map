@@ -453,16 +453,15 @@ window.handlePortraitError = async function (imgEl) {
           if (list.length) {
             htmlList = '<table style="border-collapse: collapse; width: 100%;">';
             htmlList +=
-              '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Education</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+              '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
             list.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
               const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
               const img = portraitHtml(j);
               const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
               const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
-              const edu = j.education || "Not available";
               const party = presidentParty[j.appointed_by] || "";
-              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${edu}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
             });
             htmlList += "</table>";
           } else {
@@ -507,16 +506,15 @@ window.handlePortraitError = async function (imgEl) {
             if (dcList.length) {
               htmlList += '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
-                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Education</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
               dcList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
                 const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
                 const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
-                const edu = j.education || "Not available";
                 const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${edu}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
               });
               htmlList += "</table>";
             } else {
@@ -527,16 +525,15 @@ window.handlePortraitError = async function (imgEl) {
             if (fedList.length) {
               htmlList += '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
-                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Education</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
               fedList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
                 const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
                 const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
-                const edu = j.education || "Not available";
                 const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${edu}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
               });
               htmlList += "</table>";
             } else {
@@ -549,7 +546,7 @@ window.handlePortraitError = async function (imgEl) {
             if (list.length) {
               htmlList = '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
-                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Education</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
 
               list.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
@@ -557,9 +554,8 @@ window.handlePortraitError = async function (imgEl) {
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
                 const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
-                const edu = j.education || "Not available";
                 const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${edu}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
               });
 
               htmlList += "</table>";
@@ -599,7 +595,7 @@ window.handlePortraitError = async function (imgEl) {
           if (list.length) {
             htmlList = '<table style="border-collapse: collapse; width: 100%;">';
             htmlList +=
-              '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Education</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+              '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
 
             list.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
@@ -607,9 +603,8 @@ window.handlePortraitError = async function (imgEl) {
               const img = portraitHtml(j);
               const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
               const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
-              const edu = j.education || "Not available";
               const party = presidentParty[j.appointed_by] || "";
-              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${edu}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
             });
 
             htmlList += "</table>";
