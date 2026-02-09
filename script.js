@@ -119,6 +119,9 @@ function showJudgePopup(html) {
 
   // Prevent map from eating taps while popup is open
   document.body.style.overflow = "hidden";
+
+  // Update table headers with sort indicators
+  updateTableHeaders();
 }
 
 function hideJudgePopup() {
@@ -233,6 +236,97 @@ window.handlePortraitError = async function (imgEl) {
     const srcAttr = String(initial).replace(/"/g, "&quot;");
 
     return `<img src="${srcAttr}" width="50" style="vertical-align:middle;" data-wikititle="${titleAttr}" onerror="window.handlePortraitError(this)">`;
+  }
+
+  // --------------------------------------------------------------------------
+  // Table sorting functionality
+  // --------------------------------------------------------------------------
+
+  let currentSortColumn = null;
+  let currentSortDirection = 'asc';
+
+  function sortJudges(judges, column) {
+    if (!column) return judges;
+
+    return [...judges].sort((a, b) => {
+      let aVal, bVal;
+
+      switch (column) {
+        case 'name':
+          aVal = a.name.toLowerCase();
+          bVal = b.name.toLowerCase();
+          break;
+        case 'party':
+          aVal = presidentParty[a.appointed_by] || '';
+          bVal = presidentParty[b.appointed_by] || '';
+          break;
+        default:
+          return 0;
+      }
+
+      if (aVal < bVal) return currentSortDirection === 'asc' ? -1 : 1;
+      if (aVal > bVal) return currentSortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  function createSortableHeader(text, column) {
+    return `<th style="border: 1px solid #ccc; padding: 5px; cursor: pointer; user-select: none;" onclick="sortTable('${column}')">${text}</th>`;
+  }
+
+  window.sortTable = function(column) {
+    if (currentSortColumn === column) {
+      currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      currentSortColumn = column;
+      currentSortDirection = 'asc';
+    }
+
+    // Update the table headers to show the sort arrows
+    updateTableHeaders();
+
+    // Sort the table rows in place
+    const table = document.querySelector('#judge-popup-content table');
+    if (table) {
+      const tbody = table.querySelector('tbody') || table;
+      const rows = Array.from(tbody.querySelectorAll('tr')).slice(1); // Skip header row
+
+      rows.sort((a, b) => {
+        let aVal, bVal;
+
+        if (column === 'name') {
+          // Extract name from the second cell (index 1)
+          aVal = a.cells[1].textContent.toLowerCase();
+          bVal = b.cells[1].textContent.toLowerCase();
+        } else if (column === 'party') {
+          // Extract party from the third cell (index 2)
+          aVal = a.cells[2].textContent.toLowerCase();
+          bVal = b.cells[2].textContent.toLowerCase();
+        } else {
+          return 0;
+        }
+
+        if (aVal < bVal) return currentSortDirection === 'asc' ? -1 : 1;
+        if (aVal > bVal) return currentSortDirection === 'asc' ? 1 : -1;
+        return 0;
+      });
+
+      // Re-append the sorted rows
+      rows.forEach(row => tbody.appendChild(row));
+    }
+  };
+
+  function updateTableHeaders() {
+    const headers = document.querySelectorAll('#judge-popup-content th');
+    headers.forEach((header, index) => {
+      const text = header.textContent.replace(/[↑↓]/g, '').trim();
+      let arrow = '';
+      if ((index === 1 && currentSortColumn === 'name') ||
+          (index === 2 && currentSortColumn === 'party')) {
+        arrow = currentSortDirection === 'asc' ? ' ↑' : ' ↓';
+      }
+      header.innerHTML = text + arrow;
+    });
   }
 
   // --------------------------------------------------------------------------
@@ -449,12 +543,13 @@ window.handlePortraitError = async function (imgEl) {
           // Get SCOTUS justices from judges.by_circuit.SCOTUS
           const entry = judges.by_circuit?.SCOTUS;
           const list = entry?.judges || [];
+          const sortedList = sortJudges(list, currentSortColumn);
           let htmlList = "";
-          if (list.length) {
+          if (sortedList.length) {
             htmlList = '<table style="border-collapse: collapse; width: 100%;">';
             htmlList +=
-              '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
-            list.forEach((j) => {
+              '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
+            sortedList.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
               const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
               const img = portraitHtml(j);
@@ -503,11 +598,12 @@ window.handlePortraitError = async function (imgEl) {
             const fedList = fedEntry?.judges || [];
 
             htmlList += "<h3>District of Columbia Circuit</h3>";
-            if (dcList.length) {
+            const sortedDcList = sortJudges(dcList, currentSortColumn);
+            if (sortedDcList.length) {
               htmlList += '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
-                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
-              dcList.forEach((j) => {
+                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
+              sortedDcList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
                 const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
                 const img = portraitHtml(j);
@@ -522,11 +618,12 @@ window.handlePortraitError = async function (imgEl) {
             }
 
             htmlList += "<h3>Federal Circuit</h3>";
-            if (fedList.length) {
+            const sortedFedList = sortJudges(fedList, currentSortColumn);
+            if (sortedFedList.length) {
               htmlList += '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
-                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
-              fedList.forEach((j) => {
+                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
+              sortedFedList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
                 const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
                 const img = portraitHtml(j);
@@ -542,13 +639,14 @@ window.handlePortraitError = async function (imgEl) {
           } else {
             const entry = judges.by_circuit?.[circuit];
             const list = entry?.judges || [];
+            const sortedList = sortJudges(list, currentSortColumn);
 
-            if (list.length) {
+            if (sortedList.length) {
               htmlList = '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
-                '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
 
-              list.forEach((j) => {
+              sortedList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
                 const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
                 const img = portraitHtml(j);
@@ -590,14 +688,15 @@ window.handlePortraitError = async function (imgEl) {
 
           const entry = judges.by_jdcode?.[jdcode];
           const list = entry?.judges || [];
+          const sortedList = sortJudges(list, currentSortColumn);
 
           let htmlList = "";
-          if (list.length) {
+          if (sortedList.length) {
             htmlList = '<table style="border-collapse: collapse; width: 100%;">';
             htmlList +=
-              '<tr><th style="border: 1px solid #ccc; padding: 5px;">Portrait</th><th style="border: 1px solid #ccc; padding: 5px;">Name</th><th style="border: 1px solid #ccc; padding: 5px;">Party of Appointing President</th></tr>';
+              '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
 
-            list.forEach((j) => {
+            sortedList.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
               const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
               const img = portraitHtml(j);
