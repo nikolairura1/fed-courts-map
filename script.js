@@ -18,6 +18,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   msg.textContent = "✅ Leaflet + topojson-client loaded";
 
+  function hasNaN(obj) {
+    if (typeof obj !== 'object' || obj === null) return false;
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const value = obj[key];
+        if (typeof value === 'number' && isNaN(value)) return true;
+        if (typeof value === 'object' && hasNaN(value)) return true;
+      }
+    }
+    return false;
+  }
+
 // -------------------- MOBILE-SAFE POPUP (drop-in) --------------------
 function ensureJudgePopup() {
   let popup = document.getElementById("judge-popup");
@@ -270,7 +282,7 @@ window.handlePortraitError = async function (imgEl) {
   });
 
   try {
-    const [usRes, judgesRes] = await Promise.all([fetch("us.json"), fetch("judges.json")]);
+    const [usRes, judgesRes] = await Promise.all([fetch("us.json?" + Date.now()), fetch("judges.json?" + Date.now())]);
     const us = await usRes.json();
     judges = await judgesRes.json();
 
@@ -278,8 +290,73 @@ window.handlePortraitError = async function (imgEl) {
 
     msg.textContent = `✅ Loaded us.json + judges.json (updated: ${judges.last_updated_utc})`;
 
-    districtsGeoJSON = topojson.feature(us, us.objects.districts);
-
+    try { districtsGeoJSON = topojson.feature(us, us.objects.districts); } catch (e) { console.error("TopoJSON error:", e); districtsGeoJSON = {type: "FeatureCollection", features: []}; }
+    if (districtsGeoJSON && districtsGeoJSON.features) {
+      districtsGeoJSON.features = districtsGeoJSON.features.filter(feature => !hasNaN(feature));
+    }
+    districtsGeoJSON.features.push({
+  "type": "Feature",
+  "properties": { "jdcode": 91, "state": "GU", "name": "Guam" },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[[
+      144.619, 13.182],
+      [144.65, 13.2],
+      [144.8, 13.25],
+      [144.956, 13.3],
+      [144.956, 13.444],
+      [144.9, 13.5],
+      [144.8, 13.6],
+      [144.7, 13.706],
+      [144.619, 13.706],
+      [144.619, 13.182]
+    ]]
+  }
+});
+    districtsGeoJSON.features.push({
+  "type": "Feature",
+  "properties": { "jdcode": 92, "state": "MP", "name": "Northern Mariana Islands" },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[[
+      145.0, 14.0],
+      [145.2, 14.2],
+      [145.6, 15.0],
+      [145.8, 15.3],
+      [145.8, 20.5],
+      [145.6, 20.0],
+      [145.0, 14.0]
+    ]]
+  }
+});
+    districtsGeoJSON.features.push({
+  "type": "Feature",
+  "properties": { "jdcode": 93, "state": "PR", "name": "Puerto Rico" },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[[
+      -67.3, 17.9],
+      [-65.2, 17.9],
+      [-65.2, 18.5],
+      [-67.3, 18.5],
+      [-67.3, 17.9]
+    ]]
+  }
+});
+    districtsGeoJSON.features.push({
+  "type": "Feature",
+  "properties": { "jdcode": 94, "state": "VI", "name": "Virgin Islands" },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[[
+      -65.0, 17.6],
+      [-64.5, 17.6],
+      [-64.5, 18.4],
+      [-65.0, 18.4],
+      [-65.0, 17.6]
+    ]]
+  }
+});
     jdcodeToCircuit = {
       0:12,1:11,2:11,3:11,4:9,5:9,6:8,7:8,8:9,9:9,10:9,11:9,12:10,13:2,14:3,15:11,16:11,17:11,18:11,19:11,20:11,21:11,22:9,23:9,24:7,25:7,26:7,27:7,28:7,29:8,30:8,31:10,32:6,33:6,34:5,35:5,36:5,37:1,38:4,39:1,40:6,41:6,42:8,43:5,44:5,45:8,46:8,47:9,48:8,49:9,50:1,51:3,52:10,53:2,54:2,55:2,56:2,57:4,58:4,59:4,60:8,61:6,62:6,63:10,64:10,65:10,66:9,67:3,68:3,69:3,70:1,71:4,72:8,73:6,74:6,75:6,76:5,77:5,78:5,79:5,80:10,81:2,82:4,83:4,84:9,85:9,86:4,87:4,88:7,89:7,90:10
     };
@@ -501,7 +578,12 @@ window.handlePortraitError = async function (imgEl) {
     // District layer
     const districtLayer = L.geoJSON(districtsGeoJSON, {
       style: (feature) => {
-        const colorIndex = feature.properties.jdcode % 11;
+        const jdcode = feature.properties.jdcode;
+        if (jdcode === 91) return { fillColor: "#ff4500", weight: 1, fillOpacity: 0.7 }; // Guam: orange red
+        if (jdcode === 92) return { fillColor: "#daa520", weight: 1, fillOpacity: 0.7 }; // NMI: goldenrod
+        if (jdcode === 93) return { fillColor: "#800080", weight: 1, fillOpacity: 0.7 }; // PR: purple
+        if (jdcode === 94) return { fillColor: "#00ff00", weight: 1, fillOpacity: 0.7 }; // VI: lime green
+        const colorIndex = jdcode % 11;
         return { fillColor: circuitColors[colorIndex] || "#cccccc", weight: 1, fillOpacity: 0.7 };
       },
       onEachFeature: (feature, l) => {
