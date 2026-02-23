@@ -239,7 +239,24 @@ window.handlePortraitError = async function (imgEl) {
   }
 
   function presidentPortraitHtml(j) {
-    const url = presidentPortraits[j.appointed_by];
+    let key = j.appointed_by;
+    if (key === "Donald J. Trump" || key === "Donald Trump") {
+      const year = j.assumed_office ? parseInt(j.assumed_office.split('-')[0]) : 0;
+      if (year >= 2025) {
+        key = "Donald J. Trump 2";
+      }
+    } else if (key === "George W. Bush") {
+      const year = j.assumed_office ? parseInt(j.assumed_office.split('-')[0]) : 0;
+      if (year >= 2005) {
+        key = "George W. Bush 2";
+      }
+    } else if (key === "Barack Obama") {
+      const year = j.assumed_office ? parseInt(j.assumed_office.split('-')[0]) : 0;
+      if (year >= 2017) {  // Hypothetical second term
+        key = "Barack Obama 2";
+      }
+    }
+    const url = presidentPortraits[key];
     if (url) {
       return `<img src="${url}" alt="${j.appointed_by}" style="width:30px; height:40px; vertical-align:middle; margin-right:5px;">`;
     }
@@ -396,13 +413,13 @@ window.handlePortraitError = async function (imgEl) {
   });
 
   try {
-    const [usRes, judgesRes] = await Promise.all([fetch("us.json?" + Date.now()), fetch("judgesFJC.json?" + Date.now())]);
+    const [usRes, judgesRes] = await Promise.all([fetch("us.json?" + Date.now()), fetch("judgesFJC2.json?" + Date.now())]);
     const us = await usRes.json();
     judges = await judgesRes.json();
 
     console.log('by_circuit keys:', Object.keys(judges.by_circuit || {}));
 
-    // msg.textContent = `✅ Loaded us.json + judgesFJC.json (updated: ${judges.last_updated_utc})`;
+    // msg.textContent = `✅ Loaded us.json + judgesFJC2.json (updated: ${judges.last_updated_utc})`;
 
     try { districtsGeoJSON = topojson.feature(us, us.objects.districts); } catch (e) { console.error("TopoJSON error:", e); districtsGeoJSON = {type: "FeatureCollection", features: []}; }
     if (districtsGeoJSON && districtsGeoJSON.features) {
@@ -475,6 +492,12 @@ window.handlePortraitError = async function (imgEl) {
       0:12,1:11,2:11,3:11,4:9,5:9,6:8,7:8,8:9,9:9,10:9,11:9,12:10,13:2,14:3,15:11,16:11,17:11,18:11,19:11,20:11,21:11,22:9,23:9,24:7,25:7,26:7,27:7,28:7,29:8,30:8,31:10,32:6,33:6,34:5,35:5,36:5,37:1,38:4,39:1,40:6,41:6,42:8,43:5,44:5,45:8,46:8,47:9,48:8,49:9,50:1,51:3,52:10,53:2,54:2,55:2,56:2,57:4,58:4,59:4,60:8,61:6,62:6,63:10,64:10,65:10,66:9,67:3,68:3,69:3,70:1,71:4,72:8,73:6,74:6,75:6,76:5,77:5,78:5,79:5,80:10,81:2,82:4,83:4,84:9,85:9,86:4,87:4,88:7,89:7,90:10
     };
 
+    // Add territories to circuits
+    jdcodeToCircuit[91] = 9; // Guam to 9th Circuit
+    jdcodeToCircuit[92] = 9; // Northern Mariana Islands to 9th Circuit
+    jdcodeToCircuit[93] = 1; // Puerto Rico to 1st Circuit
+    jdcodeToCircuit[94] = 3; // US Virgin Islands to 3rd Circuit
+
     circuitColors = {
       1: "#8B4513",
       2: "#556B2F",
@@ -505,13 +528,16 @@ window.handlePortraitError = async function (imgEl) {
       "Bill Clinton": "Democrat",
       "William J. Clinton": "Democrat",
       "Bush Sr.": "Republican",
-      "George H. W. Bush": "Republican",
+      "George H.W. Bush": "Republican",
       "Bush, Sr.": "Republican",
       "H.W. Bush": "Republican",
+      "George H.W. Bush": "Republican",
       "Reagan": "Republican",
       "Ronald Reagan": "Republican",
       "Reagan": "Republican",
+      "Jimmy Carter": "Democrat",
       "Carter": "Democrat",
+
       "Ford": "Republican",
       "Nixon": "Republican",
       "Johnson": "Democrat",
@@ -553,10 +579,14 @@ window.handlePortraitError = async function (imgEl) {
       "Joe Biden": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/128px-Joe_Biden_presidential_portrait.jpg",
       "Donald J. Trump": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
       "Donald Trump": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
-      "Barack Obama": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/128px-President_Barack_Obama.jpg",
-      "George W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/George-W-Bush.jpeg/128px-George-W-Bush.jpeg",
+      "Donald J. Trump 2": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Donald_Trump_2020_official_portrait.jpg/128px-Donald_Trump_2020_official_portrait.jpg",
+      "Barack Obama": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Obama_portrait_crop.jpg/960px-Obama_portrait_crop.jpg",
+      "George W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/GeorgeWBush_%281%29.jpg/960px-GeorgeWBush_%281%29.jpg",
+      "George W. Bush 2": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/George-W-Bush.jpeg/128px-George-W-Bush.jpeg",  // Same for now, or find different
+      "Barack Obama 2": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/128px-President_Barack_Obama.jpg",  // Same
       "William J. Clinton": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/128px-Bill_Clinton.jpg",
       "Bill Clinton": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/128px-Bill_Clinton.jpg",
+      "George H.W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg/128px-George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg",
       "George H. W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg/128px-George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg",
       "Ronald Reagan": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Portrait_of_President_Reagan_1981.jpg/128px-Official_Portrait_of_President_Reagan_1981.jpg",
       "Jimmy Carter": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/JimmyCarterPortrait2.jpg/128px-JimmyCarterPortrait2.jpg",
@@ -710,8 +740,8 @@ window.handlePortraitError = async function (imgEl) {
 
   }catch (e) {
     console.error(e);
-    // msg.textContent = "❌ Failed to load us.json or judgesFJC.json";
-    alert("Could not load us.json or judgesFJC.json. Make sure you are running via http://localhost:3000 (npx serve .).");
+    // msg.textContent = "❌ Failed to load us.json or judgesFJC2.json";
+    alert("Could not load us.json or judgesFJC2.json. Make sure you are running via http://localhost:3000 (npx serve .).");
     return;
   }
 
@@ -727,7 +757,7 @@ window.handlePortraitError = async function (imgEl) {
           // Get SCOTUS justices from judges.by_circuit.SCOTUS
           const entry = judges.by_circuit?.SCOTUS;
           const list = entry?.judges || [];
-          const sortedList = sortJudges(list, currentSortColumn);
+          const sortedList = list.sort((a, b) => a.name.localeCompare(b.name));
           let htmlList = "";
           if (sortedList.length) {
             htmlList = '<table style="border-collapse: collapse; width: 100%;">';
@@ -782,7 +812,7 @@ window.handlePortraitError = async function (imgEl) {
             const fedList = fedEntry?.judges || [];
 
             htmlList += "<h3>District of Columbia Circuit</h3>";
-            const sortedDcList = sortJudges(dcList, currentSortColumn);
+            const sortedDcList = dcList.sort((a, b) => a.name.localeCompare(b.name));
             if (sortedDcList.length) {
               htmlList += '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
@@ -801,7 +831,7 @@ window.handlePortraitError = async function (imgEl) {
             }
 
             htmlList += "<h3>Federal Circuit</h3>";
-            const sortedFedList = sortJudges(fedList, currentSortColumn);
+            const sortedFedList = fedList.sort((a, b) => a.name.localeCompare(b.name));
             if (sortedFedList.length) {
               htmlList += '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
@@ -821,7 +851,7 @@ window.handlePortraitError = async function (imgEl) {
           } else {
             const entry = judges.by_circuit?.[circuit];
             const list = entry?.judges || [];
-            const sortedList = sortJudges(list, currentSortColumn);
+            const sortedList = list.sort((a, b) => a.name.localeCompare(b.name));
 
             if (sortedList.length) {
               htmlList = '<table style="border-collapse: collapse; width: 100%;">';
@@ -868,16 +898,38 @@ window.handlePortraitError = async function (imgEl) {
           const districtLabel = props.name || props.jdcode || "District";
 
           const entry = judges.by_jdcode?.[jdcode];
-          const list = entry?.judges || [];
-          const sortedList = sortJudges(list, currentSortColumn);
+          const list = (entry?.judges || []).concat(entry?.senior_judges || []);
+          const activeList = list.filter(j => !j.status || j.status.toLowerCase() === 'active');
+          const seniorList = list.filter(j => j.status?.toLowerCase() === 'senior');
+          const sortedActiveList = activeList.sort((a, b) => a.name.localeCompare(b.name));
+          const sortedSeniorList = seniorList.sort((a, b) => a.name.localeCompare(b.name));
 
           let htmlList = "";
-          if (sortedList.length) {
-            htmlList = '<table style="border-collapse: collapse; width: 100%;">';
+          if (sortedActiveList.length) {
+            htmlList += '<h4>Active Judges</h4>';
+            htmlList += '<table style="border-collapse: collapse; width: 100%;">';
             htmlList +=
               '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
 
-            sortedList.forEach((j) => {
+            sortedActiveList.forEach((j) => {
+              const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
+              const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+              const img = portraitHtml(j);
+              const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
+              const party = presidentParty[j.appointed_by] || "";
+              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
+            });
+
+            htmlList += "</table>";
+          }
+
+          if (sortedSeniorList.length) {
+            htmlList += '<h4>Senior Judges</h4>';
+            htmlList += '<table style="border-collapse: collapse; width: 100%;">';
+            htmlList +=
+              '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
+
+            sortedSeniorList.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
               const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
               const img = portraitHtml(j);
@@ -888,6 +940,10 @@ window.handlePortraitError = async function (imgEl) {
 
             htmlList += "</table>";
           } else {
+            htmlList += '<h4>Senior Judges</h4><p>No senior judges.</p>';
+          }
+
+          if (!sortedActiveList.length && !sortedSeniorList.length) {
             htmlList = "<p>No judges found.</p>";
           }
 
