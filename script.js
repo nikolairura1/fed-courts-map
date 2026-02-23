@@ -238,6 +238,22 @@ window.handlePortraitError = async function (imgEl) {
     return `<img src="${srcAttr}" width="50" style="vertical-align:middle;" data-wikititle="${titleAttr}" onerror="window.handlePortraitError(this)">`;
   }
 
+  function presidentPortraitHtml(j) {
+    const url = presidentPortraits[j.appointed_by];
+    if (url) {
+      return `<img src="${url}" alt="${j.appointed_by}" style="width:30px; height:40px; vertical-align:middle; margin-right:5px;">`;
+    }
+    return '';
+  }
+
+  function partyPortraitHtml(party) {
+    const url = partyPortraits[party];
+    if (url) {
+      return `<img src="${url}" alt="${party}" style="width:20px; height:20px; vertical-align:middle; margin-left:5px;">`;
+    }
+    return '';
+  }
+
   // --------------------------------------------------------------------------
   // Table sorting functionality
   // --------------------------------------------------------------------------
@@ -257,8 +273,12 @@ window.handlePortraitError = async function (imgEl) {
           bVal = b.name.toLowerCase();
           break;
         case 'party':
-          aVal = presidentParty[a.appointed_by] || '';
-          bVal = presidentParty[b.appointed_by] || '';
+          aVal = (a.appointed_by || '').toLowerCase();
+          bVal = (b.appointed_by || '').toLowerCase();
+          break;
+        case 'education':
+          aVal = (a.education || '').toLowerCase();
+          bVal = (b.education || '').toLowerCase();
           break;
         default:
           return 0;
@@ -350,7 +370,7 @@ window.handlePortraitError = async function (imgEl) {
     attribution: "© OpenStreetMap contributors"
   }).addTo(scotusMap);
 
-  let districtsGeoJSON, judges, jdcodeToCircuit, circuitColors, presidentParty;
+  var districtsGeoJSON, judges, jdcodeToCircuit, circuitColors, presidentParty, presidentPortraits, partyPortraits, schoolToJudges, schoolsList;
 
   // Tab switching
 
@@ -376,13 +396,13 @@ window.handlePortraitError = async function (imgEl) {
   });
 
   try {
-    const [usRes, judgesRes] = await Promise.all([fetch("us.json?" + Date.now()), fetch("judges.json?" + Date.now())]);
+    const [usRes, judgesRes] = await Promise.all([fetch("us.json?" + Date.now()), fetch("judgesFJC.json?" + Date.now())]);
     const us = await usRes.json();
     judges = await judgesRes.json();
 
     console.log('by_circuit keys:', Object.keys(judges.by_circuit || {}));
 
-    msg.textContent = `✅ Loaded us.json + judges.json (updated: ${judges.last_updated_utc})`;
+    msg.textContent = `✅ Loaded us.json + judgesFJC.json (updated: ${judges.last_updated_utc})`;
 
     try { districtsGeoJSON = topojson.feature(us, us.objects.districts); } catch (e) { console.error("TopoJSON error:", e); districtsGeoJSON = {type: "FeatureCollection", features: []}; }
     if (districtsGeoJSON && districtsGeoJSON.features) {
@@ -473,14 +493,17 @@ window.handlePortraitError = async function (imgEl) {
     presidentParty = {
       "Biden": "Democrat",
       "Joe Biden": "Democrat",
+      "Joseph R. Biden": "Democrat",
       "Trump": "Republican",
       "Donald Trump": "Republican",
+      "Donald J. Trump": "Republican",
       "Obama": "Democrat",
       "Barack Obama": "Democrat",
       "Bush": "Republican",
       "George W. Bush": "Republican",
       "Clinton": "Democrat",
       "Bill Clinton": "Democrat",
+      "William J. Clinton": "Democrat",
       "Bush Sr.": "Republican",
       "George H. W. Bush": "Republican",
       "Bush, Sr.": "Republican",
@@ -524,10 +547,161 @@ window.handlePortraitError = async function (imgEl) {
       "Jefferson": "D-R",
       "Washington": "I"
     };
+
+    presidentPortraits = {
+      "Joseph R. Biden": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/128px-Joe_Biden_presidential_portrait.jpg",
+      "Joe Biden": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/128px-Joe_Biden_presidential_portrait.jpg",
+      "Donald J. Trump": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
+      "Barack Obama": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/128px-President_Barack_Obama.jpg",
+      "George W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/George-W-Bush.jpeg/128px-George-W-Bush.jpeg",
+      "William J. Clinton": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/128px-Bill_Clinton.jpg",
+      "Bill Clinton": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/128px-Bill_Clinton.jpg",
+      "George H. W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg/128px-George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg",
+      "Ronald Reagan": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Portrait_of_President_Reagan_1981.jpg/128px-Official_Portrait_of_President_Reagan_1981.jpg",
+      "Jimmy Carter": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/JimmyCarterPortrait2.jpg/128px-JimmyCarterPortrait2.jpg",
+      "Gerald Ford": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Gerald_Ford_presidential_portrait.jpg/128px-Gerald_Ford_presidential_portrait.jpg",
+      "Richard Nixon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Richard_Nixon_presidential_portrait.jpg/128px-Richard_Nixon_presidential_portrait.jpg",
+      "Lyndon B. Johnson": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/37_Lyndon_Johnson.jpg/128px-37_Lyndon_Johnson.jpg",
+      "John F. Kennedy": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg/128px-John_F._Kennedy%2C_White_House_color_photo_portrait.jpg",
+      "Dwight D. Eisenhower": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg/128px-Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg",
+      "Harry S. Truman": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Harry_S._Truman%2C_c._1947_%28cropped%29.jpg/128px-Harry_S._Truman%2C_c._1947_%28cropped%29.jpg",
+      "Franklin D. Roosevelt": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/FDR_1944_Color_Portrait.jpg/128px-FDR_1944_Color_Portrait.jpg",
+      "Herbert Hoover": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/President_Hoover_portrait.jpg/128px-President_Hoover_portrait.jpg",
+      "Calvin Coolidge": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Calvin_Coolidge_cph.3g10777.jpg/128px-Calvin_Coolidge_cph.3g10777.jpg",
+      "Warren G. Harding": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Warren_G._Harding.jpg/128px-Warren_G._Harding.jpg",
+      "Woodrow Wilson": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Woodrow_Wilson_portrait.jpg/128px-Woodrow_Wilson_portrait.jpg",
+      "William Howard Taft": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/William_Howard_Taft_portrait.jpg/128px-William_Howard_Taft_portrait.jpg",
+      "Theodore Roosevelt": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Theodore_Roosevelt_by_John_Singer_Sargent%2C_1903.jpg/128px-Theodore_Roosevelt_by_John_Singer_Sargent%2C_1903.jpg",
+      "William McKinley": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/President_William_McKinley_portrait.jpg/128px-President_William_McKinley_portrait.jpg",
+      "Grover Cleveland": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Grover_Cleveland_-_NARA_-_518139.jpg/128px-Grover_Cleveland_-_NARA_-_518139.jpg",
+      "Benjamin Harrison": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Benjamin_Harrison%2C_head_and_shoulders_bw_photo%2C_1896.jpg/128px-Benjamin_Harrison%2C_head_and_shoulders_bw_photo%2C_1896.jpg",
+      "Chester A. Arthur": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Chester_A._Arthur.jpg/128px-Chester_A._Arthur.jpg",
+      "James A. Garfield": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/James_A._Garfield%2C_photo_portrait_seated.jpg/128px-James_A._Garfield%2C_photo_portrait_seated.jpg",
+      "Rutherford B. Hayes": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Rutherford_Hayes.jpg/128px-Rutherford_Hayes.jpg",
+      "Ulysses S. Grant": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Ulysses_S._Grant_by_Brady%2C_1870-1880.jpg/128px-Ulysses_S._Grant_by_Brady%2C_1870-1880.jpg",
+      "Abraham Lincoln": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/128px-Abraham_Lincoln_O-77_matte_collodion_print.jpg",
+      "James Buchanan": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/James_Buchanan.jpg/128px-James_Buchanan.jpg",
+      "Franklin Pierce": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Mathew_Brady_-_Franklin_Pierce_-_alternate_crop.jpg/128px-Mathew_Brady_-_Franklin_Pierce_-_alternate_crop.jpg",
+      "Millard Fillmore": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Millard_Fillmore.jpg/128px-Millard_Fillmore.jpg",
+      "Zachary Taylor": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Zachary_Taylor_restored_and_cropped.jpg/128px-Zachary_Taylor_restored_and_cropped.jpg",
+      "James K. Polk": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/JKP.jpg/128px-JKP.jpg",
+      "John Tyler": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/John_Tyler.jpg/128px-John_Tyler.jpg",
+      "Martin Van Buren": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Martin_Van_Buren.jpg/128px-Martin_Van_Buren.jpg",
+      "William Henry Harrison": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/William_Henry_Harrison_by_James_Reid_Lambdin%2C_1835.jpg/128px-William_Henry_Harrison_by_James_Reid_Lambdin%2C_1835.jpg",
+      "John Quincy Adams": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/John_Quincy_Adams.jpg/128px-John_Quincy_Adams.jpg",
+      "James Monroe": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/James_Monroe_White_House_portrait.jpg/128px-James_Monroe_White_House_portrait.jpg",
+      "James Madison": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/James_Madison.jpg/128px-James_Madison.jpg",
+      "Thomas Jefferson": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/T_Jefferson_by_Charles_Willson_Peale_1791_2.jpg/128px-T_Jefferson_by_Charles_Willson_Peale_1791_2.jpg",
+      "George Washington": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg/128px-Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg"
+    };
+
+    partyPortraits = {
+      "Democrat": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/DemocraticLogo.svg/50px-DemocraticLogo.svg.png",
+      "Republican": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Republicanlogo.svg/50px-Republicanlogo.svg.png",
+      "D": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/DemocraticLogo.svg/50px-DemocraticLogo.svg.png",
+      "R": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Republicanlogo.svg/50px-Republicanlogo.svg.png"
+    };
+
+    schoolToJudges = new Map();
+    schoolsList = [];
+
+    function buildSchoolIndex() {
+      function processJudges(judgesArray, courtName) {
+        judgesArray.forEach(j => {
+          if (j.education_items) {
+            j.education_items.forEach(item => {
+              if (item.school) {
+                if (!schoolToJudges.has(item.school)) {
+                  schoolToJudges.set(item.school, []);
+                }
+                schoolToJudges.get(item.school).push({ ...j, court: courtName });
+              }
+            });
+          }
+        });
+      }
+
+      // Process all judges
+      for (const key in judges) {
+        if (key !== 'last_updated_utc' && judges[key].judges) {
+          processJudges(judges[key].judges, judges[key].district_name || key);
+        }
+      }
+      if (judges.by_jdcode) {
+        for (const jd in judges.by_jdcode) {
+          const entry = judges.by_jdcode[jd];
+          if (entry.judges) {
+            processJudges(entry.judges, entry.district_name || `District ${jd}`);
+          }
+        }
+      }
+      if (judges.by_circuit) {
+        for (const circ in judges.by_circuit) {
+          if (circ !== 'SCOTUS') {
+            const entry = judges.by_circuit[circ];
+            if (entry.judges) {
+              processJudges(entry.judges, entry.district_name || `Circuit ${circ}`);
+            }
+          }
+        }
+      }
+      schoolsList = Array.from(schoolToJudges.keys()).sort();
+    }
+
+    buildSchoolIndex();
+
+    // School search
+    const schoolInput = document.getElementById('schoolInput');
+    const suggestions = document.getElementById('suggestions');
+    const searchBtn = document.getElementById('searchBtn');
+    const schoolResults = document.getElementById('schoolResults');
+    const schoolTitle = document.getElementById('schoolTitle');
+    const schoolTableBody = document.getElementById('schoolTableBody');
+
+    schoolInput.addEventListener('input', () => {
+      const query = schoolInput.value.toLowerCase();
+      if (query.length < 2) {
+        suggestions.style.display = 'none';
+        return;
+      }
+      const matches = schoolsList.filter(s => s.toLowerCase().includes(query)).slice(0, 10);
+      if (matches.length) {
+        suggestions.innerHTML = matches.map(s => `<div style="padding: 5px; cursor: pointer;" onclick="selectSchool('${s.replace(/'/g, "\\'")}')">${s}</div>`).join('');
+        suggestions.style.display = 'block';
+      } else {
+        suggestions.style.display = 'none';
+      }
+    });
+
+    window.selectSchool = function(school) {
+      schoolInput.value = school;
+      suggestions.style.display = 'none';
+    };
+
+    searchBtn.addEventListener('click', () => {
+      const school = schoolInput.value.trim();
+      if (!school) return;
+      const judgesList = schoolToJudges.get(school);
+      if (!judgesList) {
+        alert('No judges found for that school.');
+        return;
+      }
+      schoolTitle.textContent = `Judges affiliated with ${school}`;
+      schoolTableBody.innerHTML = judgesList.map(j => {
+        const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
+        const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+        const img = portraitHtml(j);
+        const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
+        const party = presidentParty[j.appointed_by] || "";
+        const education = j.education_items ? j.education_items.map(item => `${item.school} (${item.degree})`).join(', ') : j.education || '';
+        return `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;">${j.court}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${education}</td></tr>`;
+      }).join('');
+      schoolResults.style.display = 'block';
+    });
   } catch (e) {
     console.error(e);
-    msg.textContent = "❌ Failed to load us.json or judges.json";
-    alert("Could not load us.json or judges.json. Make sure you are running via http://localhost:3000 (npx serve .).");
+    msg.textContent = "❌ Failed to load us.json or judgesFJC.json";
+    alert("Could not load us.json or judgesFJC.json. Make sure you are running via http://localhost:3000 (npx serve .).");
     return;
   }
 
@@ -548,7 +722,7 @@ window.handlePortraitError = async function (imgEl) {
           if (sortedList.length) {
             htmlList = '<table style="border-collapse: collapse; width: 100%;">';
             htmlList +=
-              '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
+              '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
             sortedList.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
               const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
@@ -556,7 +730,7 @@ window.handlePortraitError = async function (imgEl) {
               const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
               const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
               const party = presidentParty[j.appointed_by] || "";
-              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
             });
             htmlList += "</table>";
           } else {
@@ -602,15 +776,14 @@ window.handlePortraitError = async function (imgEl) {
             if (sortedDcList.length) {
               htmlList += '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
-                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
+                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
               sortedDcList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
                 const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-                const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
                 const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
               });
               htmlList += "</table>";
             } else {
@@ -622,15 +795,14 @@ window.handlePortraitError = async function (imgEl) {
             if (sortedFedList.length) {
               htmlList += '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
-                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
+                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
               sortedFedList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
                 const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-                const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
                 const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
               });
               htmlList += "</table>";
             } else {
@@ -644,16 +816,15 @@ window.handlePortraitError = async function (imgEl) {
             if (sortedList.length) {
               htmlList = '<table style="border-collapse: collapse; width: 100%;">';
               htmlList +=
-                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
+                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
 
               sortedList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
                 const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-                const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
                 const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
               });
 
               htmlList += "</table>";
@@ -694,16 +865,15 @@ window.handlePortraitError = async function (imgEl) {
           if (sortedList.length) {
             htmlList = '<table style="border-collapse: collapse; width: 100%;">';
             htmlList +=
-              '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Party of Appointing President', 'party') + '</tr>';
+              '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
 
             sortedList.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
               const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
               const img = portraitHtml(j);
               const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-              const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
               const party = presidentParty[j.appointed_by] || "";
-              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}${app}</td><td style="border: 1px solid #ccc; padding: 5px;">${party}</td></tr>`;
+              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
             });
 
             htmlList += "</table>";
