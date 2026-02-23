@@ -17,19 +17,24 @@
       margin: 5px;
       cursor: pointer;
     }
-    #districtMap, #circuitMap {
+    #districtMap, #circuitMap, #scotusMap {
       height: 600px;
-      width: 100%;
+      width: 600px;
+      margin: 0 auto;
+      border: 2px solid #333;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
   </style>
 </head>
 <body>
-  <h1>Map of US federal court system</h1>
+  <h1>Map of the U.S. Federal Court System</h1>
 
   <div id="schoolSearch" style="margin-bottom: 20px;">
-    <input id="schoolInput" type="text" placeholder="Search for a school" style="width: 300px; padding: 5px;">
+    <input id="schoolInput" type="text" placeholder="Search judges by school" style="width: 300px; padding: 5px;">
     <div id="suggestions" style="border: 1px solid #ccc; max-height: 200px; overflow-y: auto; display: none;"></div>
     <button id="searchBtn" style="padding: 5px 10px; margin-left: 10px;">Search</button>
+    <button id="clearBtn" style="padding: 5px 10px; margin-left: 10px;">Clear</button>
   </div>
   <div id="schoolResults" style="display: none; margin-bottom: 20px;">
     <h2 id="schoolTitle"></h2>
@@ -54,7 +59,7 @@
   </div>
   <div id="districtMap"></div>
   <div id="circuitMap" style="display:none"></div>
-  <div id="scotusMap" style="display:none; height:600px; width:100%"></div>
+  <div id="scotusMap" style="display:none"></div>
 
   <!-- Leaflet JS MUST come before script.js -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -64,8 +69,7 @@
   <script src="script.js"></script>
   <!-- Your code -->
   <footer style="margin-top: 20px; padding: 10px; border-top: 1px solid #ccc; font-size: 14px; color: #666;">
-    <p><strong>Disclaimer:</strong> Results may be incomplete or inaccurate because this was built by scraping Wikipedia. If you notice anything wrong or any of the links don't work, please email me at <a href="mailto:ner37@cornell.edu">ner37@cornell.edu</a>. Currently only showing ACTIVE Federal judges. If there is sufficient interest, I will add senior & magistrate judges, and after that consider adding states.</p>
-    <p>Please note that districts only display within one world map, so for places like Guam make sure you are checking on the correct side of the International Date line. </p>
+    <p><strong>Disclaimer:</strong> Results may be incomplete or inaccurate, if you notice anything wrong or any of the links don't work, please email me at <a href="mailto:ner37@cornell.edu">ner37@cornell.edu</a>. Currently only showing ACTIVE Federal judges. If there is sufficient interest, I will add senior & magistrate judges, and after that consider adding states.</p>
   </footer>
 </body>
 </html>

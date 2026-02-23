@@ -1,5 +1,22 @@
 body {
   font-family: Arial, sans-serif;
+  background-color: #f0f8ff;
+}
+
+h1 {
+  text-align: center;
+}
+
+#schoolSearch {
+  text-align: center;
+}
+
+#tabs {
+  text-align: center;
+}
+
+footer {
+  text-align: left;
 }
 
 #map {

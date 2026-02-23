@@ -1,22 +1,22 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const msg = document.createElement("div");
-  msg.style.padding = "10px";
-  msg.style.background = "#ffeecc";
-  msg.style.border = "1px solid #ccaa66";
-  msg.style.marginBottom = "10px";
-  msg.style.fontFamily = "monospace";
-  document.body.prepend(msg);
+  // const msg = document.createElement("div");
+  // msg.style.padding = "10px";
+  // msg.style.background = "#ffeecc";
+  // msg.style.border = "1px solid #ccaa66";
+  // msg.style.marginBottom = "10px";
+  // msg.style.fontFamily = "monospace";
+  // document.body.prepend(msg);
 
   if (typeof L === "undefined") {
-    msg.textContent = "❌ Leaflet did not load";
+    // msg.textContent = "❌ Leaflet did not load";
     return;
   }
   if (typeof topojson === "undefined") {
-    msg.textContent = "❌ topojson-client did not load";
+    // msg.textContent = "❌ topojson-client did not load";
     return;
   }
 
-  msg.textContent = "✅ Leaflet + topojson-client loaded";
+  // msg.textContent = "✅ Leaflet + topojson-client loaded";
 
   function hasNaN(obj) {
     if (typeof obj !== 'object' || obj === null) return false;
@@ -354,18 +354,18 @@ window.handlePortraitError = async function (imgEl) {
   // --------------------------------------------------------------------------
 
 
-  const districtMap = L.map("districtMap").setView([39.5, -98.35], 4);
+  const districtMap = L.map("districtMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.5, -98.35], 4);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(districtMap);
 
-  const circuitMap = L.map("circuitMap").setView([39.5, -98.35], 4);
+  const circuitMap = L.map("circuitMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.5, -98.35], 4);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(circuitMap);
 
   // SCOTUS map
-  const scotusMap = L.map("scotusMap").setView([39.5, -98.35], 4);
+  const scotusMap = L.map("scotusMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.5, -98.35], 4);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(scotusMap);
@@ -402,7 +402,7 @@ window.handlePortraitError = async function (imgEl) {
 
     console.log('by_circuit keys:', Object.keys(judges.by_circuit || {}));
 
-    msg.textContent = `✅ Loaded us.json + judgesFJC.json (updated: ${judges.last_updated_utc})`;
+    // msg.textContent = `✅ Loaded us.json + judgesFJC.json (updated: ${judges.last_updated_utc})`;
 
     try { districtsGeoJSON = topojson.feature(us, us.objects.districts); } catch (e) { console.error("TopoJSON error:", e); districtsGeoJSON = {type: "FeatureCollection", features: []}; }
     if (districtsGeoJSON && districtsGeoJSON.features) {
@@ -552,6 +552,7 @@ window.handlePortraitError = async function (imgEl) {
       "Joseph R. Biden": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/128px-Joe_Biden_presidential_portrait.jpg",
       "Joe Biden": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/128px-Joe_Biden_presidential_portrait.jpg",
       "Donald J. Trump": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
+      "Donald Trump": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
       "Barack Obama": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/128px-President_Barack_Obama.jpg",
       "George W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/George-W-Bush.jpeg/128px-George-W-Bush.jpeg",
       "William J. Clinton": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/128px-Bill_Clinton.jpg",
@@ -654,6 +655,7 @@ window.handlePortraitError = async function (imgEl) {
     const schoolInput = document.getElementById('schoolInput');
     const suggestions = document.getElementById('suggestions');
     const searchBtn = document.getElementById('searchBtn');
+    const clearBtn = document.getElementById('clearBtn');
     const schoolResults = document.getElementById('schoolResults');
     const schoolTitle = document.getElementById('schoolTitle');
     const schoolTableBody = document.getElementById('schoolTableBody');
@@ -666,7 +668,7 @@ window.handlePortraitError = async function (imgEl) {
       }
       const matches = schoolsList.filter(s => s.toLowerCase().includes(query)).slice(0, 10);
       if (matches.length) {
-        suggestions.innerHTML = matches.map(s => `<div style="padding: 5px; cursor: pointer;" onclick="selectSchool('${s.replace(/'/g, "\\'")}')">${s}</div>`).join('');
+        suggestions.innerHTML = matches.map(s => `<div style="padding: 5px; cursor: pointer;" onclick="selectSchool('${s.replace(/'/g, "\\'").replace(/"/g, '\\"')}')">${s}</div>`).join('');
         suggestions.style.display = 'block';
       } else {
         suggestions.style.display = 'none';
@@ -677,6 +679,12 @@ window.handlePortraitError = async function (imgEl) {
       schoolInput.value = school;
       suggestions.style.display = 'none';
     };
+
+    clearBtn.addEventListener('click', () => {
+      schoolInput.value = '';
+      suggestions.style.display = 'none';
+      schoolResults.style.display = 'none';
+    });
 
     searchBtn.addEventListener('click', () => {
       const school = schoolInput.value.trim();
@@ -693,14 +701,16 @@ window.handlePortraitError = async function (imgEl) {
         const img = portraitHtml(j);
         const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
         const party = presidentParty[j.appointed_by] || "";
-        const education = j.education_items ? j.education_items.map(item => `${item.school} (${item.degree})`).join(', ') : j.education || '';
-        return `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;">${j.court}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${education}</td></tr>`;
+        const education = j.education_items ? j.education_items.map(item => `${item.school.replace(/`/g, '\\`')} (${item.degree})`).join(', ') : j.education || '';
+        const safeEducation = education.replace(/"/g, '\\"').replace(/'/g, "\\'").replace(/`/g, '\\`');
+        return `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img.replace(/`/g, '\\`')}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;">${j.court.replace(/`/g, '\\`')}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${(j.appointed_by || '').replace(/`/g, '\\`')} (${party.replace(/`/g, '\\`')})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j).replace(/`/g, '\\`')}<span style="margin-left: 5px;">${partyPortraitHtml(party).replace(/`/g, '\\`')}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${safeEducation}</td></tr>`;
       }).join('');
       schoolResults.style.display = 'block';
-    });
-  } catch (e) {
+    })
+
+  }catch (e) {
     console.error(e);
-    msg.textContent = "❌ Failed to load us.json or judgesFJC.json";
+    // msg.textContent = "❌ Failed to load us.json or judgesFJC.json";
     alert("Could not load us.json or judgesFJC.json. Make sure you are running via http://localhost:3000 (npx serve .).");
     return;
   }
@@ -730,7 +740,7 @@ window.handlePortraitError = async function (imgEl) {
               const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
               const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
               const party = presidentParty[j.appointed_by] || "";
-              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
+              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
             });
             htmlList += "</table>";
           } else {
@@ -783,7 +793,7 @@ window.handlePortraitError = async function (imgEl) {
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
                 const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
               });
               htmlList += "</table>";
             } else {
@@ -802,7 +812,7 @@ window.handlePortraitError = async function (imgEl) {
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
                 const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
               });
               htmlList += "</table>";
             } else {
@@ -824,7 +834,7 @@ window.handlePortraitError = async function (imgEl) {
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
                 const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
+                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
               });
 
               htmlList += "</table>";
