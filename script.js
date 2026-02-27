@@ -227,15 +227,14 @@ window.handlePortraitError = async function (imgEl) {
     const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
     const initial = j.image_url ? fixCommonsThumbUrl(j.image_url, 250) : null;
 
-    // If we don't even have an initial URL, we *could* fetch Wikipedia directly,
-    // but keeping it simple: show "No image".
-    if (!initial) return "No image";
+    // If we don't even have an initial URL, show placeholder
+    if (!initial) return '<div style="width:40px; height:50px; background:#f5f5f5; border:1px solid #ddd; border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:8px; color:#999; text-align:center;">No Photo</div>';
 
-    // Use an onerror fallback to Wikipedia page thumbnail.
+    // Use a simpler onerror that just hides the image and shows placeholder
     const titleAttr = safeTitle.replace(/"/g, "&quot;");
     const srcAttr = String(initial).replace(/"/g, "&quot;");
 
-    return `<img src="${srcAttr}" width="50" style="vertical-align:middle;" data-wikititle="${titleAttr}" onerror="window.handlePortraitError(this)">`;
+    return `<img src="${srcAttr}" width="40" height="50" style="object-fit:cover; border-radius:3px; border:1px solid #ddd;" data-wikititle="${titleAttr}" onerror="this.style.display='none'; this.nextSibling.style.display='block';" loading="lazy"><div style="display:none; width:40px; height:50px; background:#f5f5f5; border:1px solid #ddd; border-radius:3px; align-items:center; justify-content:center; font-size:8px; color:#999; text-align:center;">No Photo</div>`;
   }
 
   function presidentPortraitHtml(j) {
@@ -258,7 +257,7 @@ window.handlePortraitError = async function (imgEl) {
     }
     const url = presidentPortraits[key];
     if (url) {
-      return `<img src="${url}" alt="${j.appointed_by}" style="width:30px; height:40px; vertical-align:middle; margin-right:5px;">`;
+      return `<img src="${url}" alt="${j.appointed_by}" style="width:25px; height:32px; vertical-align:middle; margin-right:3px; border-radius:2px;" loading="lazy" onerror="this.style.display='none'">`;
     }
     return '';
   }
@@ -266,7 +265,7 @@ window.handlePortraitError = async function (imgEl) {
   function partyPortraitHtml(party) {
     const url = partyPortraits[party];
     if (url) {
-      return `<img src="${url}" alt="${party}" style="width:20px; height:20px; vertical-align:middle; margin-left:5px;">`;
+      return `<img src="${url}" alt="${party}" style="width:16px; height:16px; vertical-align:middle; margin-left:3px;" loading="lazy" onerror="this.style.display='none'">`;
     }
     return '';
   }

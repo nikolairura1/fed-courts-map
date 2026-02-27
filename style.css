@@ -23,3 +23,35 @@ footer {
   height: 600px;
   width: 100%;
 }
+
+/* Mobile-friendly popup styles */
+.leaflet-popup-content table {
+  font-size: 12px;
+  width: 100%;
+}
+
+.leaflet-popup-content td {
+  padding: 3px !important;
+  vertical-align: top;
+}
+
+.leaflet-popup-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive table for mobile */
+@media (max-width: 768px) {
+  .leaflet-popup-content table {
+    font-size: 11px;
+  }
+
+  .leaflet-popup-content td {
+    padding: 2px !important;
+  }
+
+  .leaflet-popup-content img {
+    width: 30px !important;
+    height: 40px !important;
+  }
+}
