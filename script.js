@@ -602,7 +602,7 @@ function showPortraitPlaceholder(imgEl) {
       "Joe Biden": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/128px-Joe_Biden_presidential_portrait.jpg",
       "Donald J. Trump": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
       "Donald Trump": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
-      "Donald J. Trump 2": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Donald_Trump_2020_official_portrait.jpg/128px-Donald_Trump_2020_official_portrait.jpg",
+      "Donald J. Trump 2": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
       "Barack Obama": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Obama_portrait_crop.jpg/960px-Obama_portrait_crop.jpg",
       "George W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/GeorgeWBush_%281%29.jpg/960px-GeorgeWBush_%281%29.jpg",
       "George W. Bush 2": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/George-W-Bush.jpeg/128px-George-W-Bush.jpeg",  // Same for now, or find different
