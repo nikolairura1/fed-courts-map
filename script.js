@@ -190,7 +190,10 @@ window.handlePortraitError = async function (imgEl) {
 
     const raw = imgEl.dataset.wikititle;
     const title = cleanWikiTitle(raw);
-    if (!title) return;
+    if (!title) {
+      showPortraitPlaceholder(imgEl);
+      return;
+    }
 
     async function fetchThumb(t) {
       if (_wikiPortraitCache.has(t)) return _wikiPortraitCache.get(t);
@@ -216,11 +219,32 @@ window.handlePortraitError = async function (imgEl) {
       url = await fetchThumb(title.replace(/_Jr_?$/, "_Jr"));
     }
 
-    if (url) imgEl.src = url;
+    if (url) {
+      imgEl.src = url;
+    } else {
+      showPortraitPlaceholder(imgEl);
+    }
   } catch {
-    // keep stable
+    showPortraitPlaceholder(imgEl);
   }
 };
+
+function showPortraitPlaceholder(imgEl) {
+  const placeholder = document.createElement('div');
+  placeholder.style.width = '40px';
+  placeholder.style.height = '50px';
+  placeholder.style.background = '#f5f5f5';
+  placeholder.style.border = '1px solid #ddd';
+  placeholder.style.borderRadius = '3px';
+  placeholder.style.display = 'flex';
+  placeholder.style.alignItems = 'center';
+  placeholder.style.justifyContent = 'center';
+  placeholder.style.fontSize = '8px';
+  placeholder.style.color = '#999';
+  placeholder.style.textAlign = 'center';
+  placeholder.textContent = 'No Photo';
+  imgEl.parentNode.replaceChild(placeholder, imgEl);
+}
 
 
   function portraitHtml(j) {
@@ -230,11 +254,11 @@ window.handlePortraitError = async function (imgEl) {
     // If we don't even have an initial URL, show placeholder
     if (!initial) return '<div style="width:40px; height:50px; background:#f5f5f5; border:1px solid #ddd; border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:8px; color:#999; text-align:center;">No Photo</div>';
 
-    // Use a simpler onerror that just hides the image and shows placeholder
+    // Use onerror with mobile-friendly fallback
     const titleAttr = safeTitle.replace(/"/g, "&quot;");
     const srcAttr = String(initial).replace(/"/g, "&quot;");
 
-    return `<img src="${srcAttr}" width="40" height="50" style="object-fit:cover; border-radius:3px; border:1px solid #ddd;" data-wikititle="${titleAttr}" onerror="this.style.display='none'; this.nextSibling.style.display='block';" loading="lazy"><div style="display:none; width:40px; height:50px; background:#f5f5f5; border:1px solid #ddd; border-radius:3px; align-items:center; justify-content:center; font-size:8px; color:#999; text-align:center;">No Photo</div>`;
+    return `<img src="${srcAttr}" width="40" height="50" style="object-fit:cover; border-radius:3px; border:1px solid #ddd;" data-wikititle="${titleAttr}" onerror="window.handlePortraitError(this)" loading="lazy">`;
   }
 
   function presidentPortraitHtml(j) {
