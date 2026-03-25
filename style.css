@@ -1,10 +1,72 @@
+html {
+  height: 100%;
+}
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Century Schoolbook", serif;
   background-color: #f0f8ff;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 290px;
+}
+
+#footer {
+    margin-top: auto;
+    height: 100px;
+}
+
+#footerContainer {
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+#footer p {
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    right: 10px;
+    font-size: 14px;
+    color: #666;
 }
 
 h1 {
   text-align: center;
+}
+
+#eagleContainer {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#eagle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 432px;
+  height: auto;
+}
+
+#eagleShadow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  width: 432px;
+  height: auto;
+  filter: blur(5px);
 }
 
 #schoolSearch {
@@ -54,4 +116,160 @@ footer {
     width: 30px !important;
     height: 40px !important;
   }
+}
+
+/* Curtain overlays */
+#topCurtain {
+  position: absolute;
+  top: -50px;
+  left: -110px;
+  width: 1650px;
+  height: 1469px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#leftCurtain {
+  position: absolute;
+  top: -130px;
+  height: 1609px;
+  left: -130px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#rightCurtain {
+  position: absolute;
+  top: -110px;
+  height: 1609px;
+  right: -60px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Curtain shadows */
+#topShadow {
+  position: absolute;
+  top: -40px;
+  left: -100px;
+  width: 1650px;
+  height: 1469px;
+  z-index: 998;
+  pointer-events: none;
+  opacity: 0.4;
+  filter: blur(5px);
+}
+
+#leftShadow {
+  position: absolute;
+  top: -120px;
+  height: 1609px;
+  left: -120px;
+  z-index: 998;
+  pointer-events: none;
+  opacity: 0.4;
+  filter: blur(5px);
+}
+
+#rightShadow {
+  position: absolute;
+  top: -100px;
+  height: 1609px;
+  right: -50px;
+  z-index: 998;
+  pointer-events: none;
+  opacity: 0.4;
+  filter: blur(5px);
+}
+
+/* Bottom banister */
+#bottomBanister1 {
+  position: absolute;
+  bottom: -174px;
+  left: 0%;
+  width: 20%;
+  height: auto;
+  z-index: 1000;
+  pointer-events: none;
+}
+#bottomBanister2 {
+  position: absolute;
+  bottom: -174px;
+  left: 20%;
+  width: 20%;
+  height: auto;
+  z-index: 1000;
+  pointer-events: none;
+}
+#bottomBanister3 {
+  position: absolute;
+  bottom: -174px;
+  left: 40%;
+  width: 20%;
+  height: auto;
+  z-index: 1000;
+  pointer-events: none;
+}
+#bottomBanister4 {
+  position: absolute;
+  bottom: -174px;
+  left: 60%;
+  width: 20%;
+  height: auto;
+  z-index: 1000;
+  pointer-events: none;
+}
+#bottomBanister5 {
+  position: absolute;
+  bottom: -174px;
+  left: 80%;
+  width: 20%;
+  height: auto;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Curtains */
+#topCurtain {
+  position: absolute;
+  top: -33px;
+  left: -97px;
+  right: auto;
+  z-index: 1001;
+}
+#leftCurtain {
+  position: absolute;
+  top: -72px;
+  left: -106px;
+  z-index: 1000;
+}
+#rightCurtain {
+  position: absolute;
+  top: -59px;
+  right: -47px;
+  left: auto;
+  z-index: 1000;
+}
+#topShadow {
+  position: absolute;
+  top: -33px;
+  left: -97px;
+  right: auto;
+  z-index: 998;
+  filter: blur(5px);
+}
+#leftShadow {
+  position: absolute;
+  top: -72px;
+  left: 292px;
+  z-index: 998;
+  filter: blur(5px);
+}
+#rightShadow {
+  position: absolute;
+  top: -59px;
+  right: 353px;
+  left: auto;
+  z-index: 998;
+  filter: blur(5px);
 }

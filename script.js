@@ -18,6 +18,34 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // msg.textContent = "✅ Leaflet + topojson-client loaded";
 
+  // Adjust curtain positions to fit snugly
+  const topCurtain = document.getElementById('topCurtain');
+  const leftCurtain = document.getElementById('leftCurtain');
+  const rightCurtain = document.getElementById('rightCurtain');
+  const topShadow = document.getElementById('topShadow');
+  const leftShadow = document.getElementById('leftShadow');
+  const rightShadow = document.getElementById('rightShadow');
+  if (topCurtain) {
+    // Wait for image to load
+    topCurtain.addEventListener('load', () => {
+      topCurtain.style.zIndex = '1001';
+      leftCurtain.style.zIndex = '1000';
+      rightCurtain.style.zIndex = '1000';
+      topShadow.style.zIndex = '998';
+      leftShadow.style.zIndex = '998';
+      rightShadow.style.zIndex = '998';
+    });
+    // If already loaded
+    if (topCurtain.complete) {
+      topCurtain.style.zIndex = '1001';
+      leftCurtain.style.zIndex = '1000';
+      rightCurtain.style.zIndex = '1000';
+      topShadow.style.zIndex = '998';
+      leftShadow.style.zIndex = '998';
+      rightShadow.style.zIndex = '998';
+    }
+  }
+
   function hasNaN(obj) {
     if (typeof obj !== 'object' || obj === null) return false;
     for (const key in obj) {
@@ -980,4 +1008,5 @@ function showPortraitPlaceholder(imgEl) {
 
     districtMap.fitBounds(districtLayer.getBounds());
   }
+
 });

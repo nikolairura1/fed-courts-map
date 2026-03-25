@@ -28,6 +28,11 @@
   </style>
 </head>
 <body>
+  <div id="eagleContainer">
+    <img src="eagle.png" id="eagle">
+    <img src="eagleshadow.png" id="eagleShadow">
+  </div>
+
   <h1>Map of the U.S. Federal Court System</h1>
 
   <div id="schoolSearch" style="margin-bottom: 20px;">
@@ -66,10 +71,30 @@
 
     <script src="https://unpkg.com/topojson@3/dist/topojson.min.js"></script>
 
-  <script src="script.js"></script>
   <!-- Your code -->
-  <footer style="margin-top: 20px; padding: 10px; border-top: 1px solid #ccc; font-size: 14px; color: #666;">
-    <p><strong>Disclaimer:</strong> Results may be incomplete or inaccurate, if you notice anything wrong or any of the links don't work, please email me at <a href="mailto:ner37@cornell.edu">ner37@cornell.edu</a>. Currently only showing ACTIVE Federal judges. If there is sufficient interest, I will add senior & magistrate judges, and after that consider adding states.</p>
+  <footer id="footer">
+    <div id="footerContainer">
+      <p><strong>Disclaimer:</strong> Results may be incomplete or inaccurate, if you notice anything wrong or any of the links don't work, please email me at <a href="mailto:ner37@cornell.edu">ner37@cornell.edu</a>. Currently showing active and senior Federal judges. If there is sufficient interest, I will add magistrate judges & specialty courts and after that consider adding states.</p>
+
+      <!-- Bottom banister -->
+      <img src="bannister.png" id="bottomBanister1">
+      <img src="bannister.png" id="bottomBanister2">
+      <img src="bannister.png" id="bottomBanister3">
+      <img src="bannister.png" id="bottomBanister4">
+      <img src="bannister.png" id="bottomBanister5">
+    </div>
   </footer>
+
+  <!-- Curtain overlays -->
+  <img src="top-valance.png" id="topCurtain">
+  <img src="right-valance.png" id="leftCurtain">
+  <img src="left-valance.png" id="rightCurtain">
+
+  <!-- Curtain shadows -->
+  <img src="dropshadowtop.png" id="topShadow">
+  <img src="left-shadow.png" id="leftShadow">
+  <img src="right-shadow.png" id="rightShadow">
+
+  <script src="script.js"></script>
 </body>
 </html>
