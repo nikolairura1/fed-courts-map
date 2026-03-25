@@ -191,7 +191,7 @@ function cleanWikiTitle(t) {
 
   // Fix malformed thumb URLs that end at the filename:
   // .../commons/thumb/a/ab/Foo.jpg  ->  .../commons/thumb/a/ab/Foo.jpg/250px-Foo.jpg
-  function fixCommonsThumbUrl(url, width = 250) {
+  function fixCommonsThumbUrl(url, width = 150) {
     if (!url || typeof url !== "string") return url;
 
     // Already a correctly formed thumbnail URL
@@ -309,7 +309,7 @@ function showPortraitPlaceholder(imgEl) {
     }
     const url = presidentPortraits[key];
     if (url) {
-      return `<img src="${url}" alt="${j.appointed_by}" style="width:25px; height:32px; vertical-align:middle; margin-right:3px; border-radius:2px;" loading="lazy" onerror="this.style.display='none'">`;
+      return `<img src="${url}" alt="${j.appointed_by}" style="width:32px; height:40px; vertical-align:middle; margin-right:3px; border-radius:2px; object-fit:cover;" loading="lazy" onerror="this.style.display='none'">`;
     }
     return '';
   }
@@ -626,23 +626,23 @@ function showPortraitPlaceholder(imgEl) {
     };
 
     presidentPortraits = {
-      "Joseph R. Biden": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/128px-Joe_Biden_presidential_portrait.jpg",
-      "Joe Biden": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/128px-Joe_Biden_presidential_portrait.jpg",
-      "Donald J. Trump": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
-      "Donald Trump": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/128px-Donald_Trump_official_portrait.jpg",
-      "Donald J. Trump 2": "https://upload.wikimedia.org/wikipedia/commons/4/47/Official_Presidential_Portrait_of_President_Donald_J._Trump_%282025%29_%283x4_close_cropped%29.jpg",
-      "Barack Obama": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Obama_portrait_crop.jpg/960px-Obama_portrait_crop.jpg",
-      "George W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/GeorgeWBush_%281%29.jpg/960px-GeorgeWBush_%281%29.jpg",
-      "George W. Bush 2": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/George-W-Bush.jpeg/128px-George-W-Bush.jpeg",  // Same for now, or find different
-      "Barack Obama 2": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/128px-President_Barack_Obama.jpg",  // Same
-      "William J. Clinton": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/128px-Bill_Clinton.jpg",
-      "Bill Clinton": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bill_Clinton.jpg/128px-Bill_Clinton.jpg",
-      "George H.W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg/128px-George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg",
-      "George H. W. Bush": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg/128px-George_H._W._Bush%2C_President_of_the_United_States%2C_1989_official_portrait.jpg",
-      "Ronald Reagan": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Portrait_of_President_Reagan_1981.jpg/128px-Official_Portrait_of_President_Reagan_1981.jpg",
-      "Jimmy Carter": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/JimmyCarterPortrait2.jpg/128px-JimmyCarterPortrait2.jpg",
-      "Gerald Ford": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Gerald_Ford_presidential_portrait.jpg/128px-Gerald_Ford_presidential_portrait.jpg",
-      "Richard Nixon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Richard_Nixon_presidential_portrait.jpg/128px-Richard_Nixon_presidential_portrait.jpg",
+      "Joseph R. Biden": "46-joe-biden.png",
+      "Joe Biden": "46-joe-biden.png",
+      "Donald J. Trump": "trump1.png",
+      "Donald Trump": "trump1.png",
+      "Donald J. Trump 2": "trump2.png",
+      "Barack Obama": "obama1.jpg",
+      "George W. Bush": "bush1.jpeg",
+      "George W. Bush 2": "bush2.jpg",  // Same for now, or find different
+      "Barack Obama 2": "obama2.webp",
+      "William J. Clinton": "Bill_Clinton.jpg",
+      "Bill Clinton": "Bill_Clinton.jpg",
+      "George H.W. Bush": "George_H._W._Bush_presidential_portrait_(cropped_5).jpg",
+      "George H. W. Bush": "George_H._W._Bush_presidential_portrait_(cropped_5).jpg",
+      "Ronald Reagan": "Official_Portrait_of_President_Reagan_1981.jpg",
+      "Jimmy Carter": "JimmyCarterPortrait2.jpg",
+      "Gerald Ford": "Gerald_Ford_presidential_portrait_(cropped).jpg",
+      "Richard Nixon": "Richard_Nixon_1.jpg",
       "Lyndon B. Johnson": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/37_Lyndon_Johnson.jpg/128px-37_Lyndon_Johnson.jpg",
       "John F. Kennedy": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg/128px-John_F._Kennedy%2C_White_House_color_photo_portrait.jpg",
       "Dwight D. Eisenhower": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg/128px-Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg",
