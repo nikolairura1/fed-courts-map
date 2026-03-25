@@ -124,7 +124,7 @@ footer {
   top: -50px;
   left: -6vw;
   width: 100vw;
-  height: 1469px;
+  height: auto;
   z-index: 1000;
   pointer-events: none;
 }
@@ -153,7 +153,7 @@ footer {
   top: -40px;
   left: -6vw;
   width: 100vw;
-  height: 1469px;
+  height: auto;
   z-index: 998;
   pointer-events: none;
   opacity: 0.4;
