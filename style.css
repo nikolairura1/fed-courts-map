@@ -122,9 +122,9 @@ footer {
 #topCurtain {
   position: absolute;
   top: -50px;
-  left: -6vw;
-  width: 100vw;
-  height: auto;
+  left: -110px;
+  width: auto;
+  height: 1609px;
   z-index: 1000;
   pointer-events: none;
 }
@@ -151,9 +151,9 @@ footer {
 #topShadow {
   position: absolute;
   top: -40px;
-  left: -6vw;
-  width: 100vw;
-  height: auto;
+  left: -100px;
+  width: auto;
+  height: 1609px;
   z-index: 998;
   pointer-events: none;
   opacity: 0.4;
