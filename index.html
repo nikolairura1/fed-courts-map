@@ -12,14 +12,17 @@
 
   <link rel="stylesheet" href="style.css" />
   <style>
+    button {
+      font-family: "Century Schoolbook", serif;
+    }
     #tabs button {
       padding: 10px;
       margin: 5px;
       cursor: pointer;
     }
     #districtMap, #circuitMap, #scotusMap {
-      height: 50vh;
-      width: 600px;
+      height: 450px;
+      width: 900px;
       margin: 0 auto;
       border: 2px solid #333;
       border-radius: 5px;
@@ -68,7 +71,18 @@
 
   <div style="text-align: center; margin: 10px 0;">
     <a href="https://nikolairura1.github.io/tx-courts-map/"><img src="texas_brnz.jpg" alt="Texas bronze" style="width: 75px; height: auto; vertical-align: middle;"></a>
-    <span style="margin-left: 10px; vertical-align: middle;">Like this tool? Check out my interactive map of Texas state courts!</span>
+    <span style="margin-left: 10px; vertical-align: middle;">Like this tool? Check out my <a href="https://nikolairura1.github.io/tx-courts-map/">interactive map</a> of Texas state courts!</span>
+  </div>
+
+  <div id="bottomSection">
+    <p><strong>Disclaimer:</strong> Results may be incomplete or inaccurate, if you notice anything wrong or any of the links don't work, please email me at <a href="mailto:ner37@cornell.edu">ner37@cornell.edu</a>. Data from the <a href="https://www.fjc.gov/history/judges">Federal Judicial Center</a>. Currently showing active and senior Federal judges. If there is sufficient interest, I will add magistrate judges & specialty courts and after that consider adding states.</p>
+
+    <!-- Bottom banister -->
+    <img src="bannister.png" id="bottomBanister1">
+    <img src="bannister.png" id="bottomBanister2">
+    <img src="bannister.png" id="bottomBanister3">
+    <img src="bannister.png" id="bottomBanister4">
+    <img src="bannister.png" id="bottomBanister5">
   </div>
 
   <!-- Leaflet JS MUST come before script.js -->
@@ -77,18 +91,6 @@
     <script src="https://unpkg.com/topojson@3/dist/topojson.min.js"></script>
 
   <!-- Your code -->
-  <footer id="footer">
-    <div id="footerContainer">
-      <p><strong>Disclaimer:</strong> Results may be incomplete or inaccurate, if you notice anything wrong or any of the links don't work, please email me at <a href="mailto:ner37@cornell.edu">ner37@cornell.edu</a>. Data from the <a href="https://www.fjc.gov/history/judges">Federal Judicial Center</a>. Currently showing active and senior Federal judges. If there is sufficient interest, I will add magistrate judges & specialty courts and after that consider adding states.</p>
-
-      <!-- Bottom banister -->
-      <img src="bannister.png" id="bottomBanister1">
-      <img src="bannister.png" id="bottomBanister2">
-      <img src="bannister.png" id="bottomBanister3">
-      <img src="bannister.png" id="bottomBanister4">
-      <img src="bannister.png" id="bottomBanister5">
-    </div>
-  </footer>
 
   <!-- Curtain overlays -->
   <img src="top-valance.png" id="topCurtain">

@@ -1,5 +1,5 @@
 html {
-  height: 100%;
+  height: auto;
 }
 
 body {
@@ -7,29 +7,21 @@ body {
   background-color: #f0f8ff;
   margin: 0;
   padding: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
   padding-top: 290px;
+  overflow-x: hidden;
 }
 
-#footer {
+#bottomSection {
     margin-top: auto;
-    height: 100px;
-}
-
-#footerContainer {
     position: relative;
-    width: 100%;
-    height: 100px;
+    height: auto;
 }
 
-#footer p {
-    position: absolute;
-    top: 100px;
-    left: 10px;
-    right: 10px;
+#bottomSection p {
     font-size: 14px;
     color: #666;
 }
@@ -77,12 +69,8 @@ h1 {
   text-align: center;
 }
 
-footer {
-  text-align: left;
-}
-
 #map {
-  height: 600px;
+  height: 400px;
   width: 100%;
 }
 
@@ -121,28 +109,30 @@ footer {
 /* Curtain overlays */
 #topCurtain {
   position: absolute;
-  top: -50px;
-  left: -55vw;
-  width: 110vw;
-  height: 1609px;
-  z-index: 1000;
+  top: -33px;
+  left: -97px;
+  width: 1510px;
+  height: 550px;
+  z-index: 1001;
   pointer-events: none;
 }
 
 #leftCurtain {
   position: absolute;
-  top: -130px;
-  height: 1609px;
-  left: -130px;
+  top: -123px;
+  left: -185px;
+  width: 2000px;
+  height: 1210px;
   z-index: 1000;
   pointer-events: none;
 }
 
 #rightCurtain {
   position: absolute;
-  top: -110px;
-  height: 1609px;
-  right: -60px;
+  top: -131px;
+  left: -452px;
+  width: 2000px;
+  height: 1230px;
   z-index: 1000;
   pointer-events: none;
 }
@@ -150,10 +140,10 @@ footer {
 /* Curtain shadows */
 #topShadow {
   position: absolute;
-  top: -40px;
-  left: -55vw;
-  width: 110vw;
-  height: 1609px;
+  top: -30px;
+  left: -72px;
+  width: 1450px;
+  height: 300px;
   z-index: 998;
   pointer-events: none;
   opacity: 0.4;
@@ -162,9 +152,10 @@ footer {
 
 #leftShadow {
   position: absolute;
-  top: -120px;
-  height: 1609px;
-  left: -120px;
+  top: -173px;
+  left: -520px;
+  width: 2000px;
+  height: 1230px;
   z-index: 998;
   pointer-events: none;
   opacity: 0.4;
@@ -173,9 +164,10 @@ footer {
 
 #rightShadow {
   position: absolute;
-  top: -100px;
-  height: 1609px;
-  right: -50px;
+  top: -68px;
+  left: -168px;
+  width: 2000px;
+  height: 1140px;
   z-index: 998;
   pointer-events: none;
   opacity: 0.4;
@@ -185,7 +177,7 @@ footer {
 /* Bottom banister */
 #bottomBanister1 {
   position: absolute;
-  bottom: -174px;
+  bottom: -100px;
   left: 0%;
   width: 20%;
   height: auto;
@@ -194,7 +186,7 @@ footer {
 }
 #bottomBanister2 {
   position: absolute;
-  bottom: -174px;
+  bottom: -100px;
   left: 20%;
   width: 20%;
   height: auto;
@@ -203,7 +195,7 @@ footer {
 }
 #bottomBanister3 {
   position: absolute;
-  bottom: -174px;
+  bottom: -100px;
   left: 40%;
   width: 20%;
   height: auto;
@@ -212,7 +204,7 @@ footer {
 }
 #bottomBanister4 {
   position: absolute;
-  bottom: -174px;
+  bottom: -100px;
   left: 60%;
   width: 20%;
   height: auto;
@@ -221,7 +213,7 @@ footer {
 }
 #bottomBanister5 {
   position: absolute;
-  bottom: -174px;
+  bottom: -100px;
   left: 80%;
   width: 20%;
   height: auto;
@@ -229,47 +221,3 @@ footer {
   pointer-events: none;
 }
 
-/* Curtains */
-#topCurtain {
-  position: absolute;
-  top: -33px;
-  left: -97px;
-  right: auto;
-  z-index: 1001;
-}
-#leftCurtain {
-  position: absolute;
-  top: -72px;
-  left: -106px;
-  z-index: 1000;
-}
-#rightCurtain {
-  position: absolute;
-  top: -59px;
-  right: -47px;
-  left: auto;
-  z-index: 1000;
-}
-#topShadow {
-  position: absolute;
-  top: -33px;
-  left: -97px;
-  right: auto;
-  z-index: 998;
-  filter: blur(5px);
-}
-#leftShadow {
-  position: absolute;
-  top: -72px;
-  left: 292px;
-  z-index: 998;
-  filter: blur(5px);
-}
-#rightShadow {
-  position: absolute;
-  top: -59px;
-  right: 353px;
-  left: auto;
-  z-index: 998;
-  filter: blur(5px);
-}
