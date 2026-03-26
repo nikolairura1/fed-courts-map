@@ -737,9 +737,6 @@ function showPortraitPlaceholder(imgEl) {
     const suggestions = document.getElementById('suggestions');
     const searchBtn = document.getElementById('searchBtn');
     const clearBtn = document.getElementById('clearBtn');
-    const schoolResults = document.getElementById('schoolResults');
-    const schoolTitle = document.getElementById('schoolTitle');
-    const schoolTableBody = document.getElementById('schoolTableBody');
 
     schoolInput.addEventListener('input', () => {
       const query = schoolInput.value.toLowerCase();
@@ -764,7 +761,6 @@ function showPortraitPlaceholder(imgEl) {
     clearBtn.addEventListener('click', () => {
       schoolInput.value = '';
       suggestions.style.display = 'none';
-      schoolResults.style.display = 'none';
     });
 
     searchBtn.addEventListener('click', () => {
@@ -775,18 +771,27 @@ function showPortraitPlaceholder(imgEl) {
         alert('No judges found for that school.');
         return;
       }
-      schoolTitle.textContent = `Judges affiliated with ${school}`;
-      schoolTableBody.innerHTML = judgesList.map(j => {
-        const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-        const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
-        const img = portraitHtml(j);
-        const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-        const party = presidentParty[j.appointed_by] || "";
-        const education = j.education_items ? j.education_items.map(item => `${item.school.replace(/`/g, '\\`')} (${item.degree})`).join(', ') : j.education || '';
-        const safeEducation = education.replace(/"/g, '\\"').replace(/'/g, "\\'").replace(/`/g, '\\`');
-        return `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img.replace(/`/g, '\\`')}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;">${j.court.replace(/`/g, '\\`')}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${(j.appointed_by || '').replace(/`/g, '\\`')} (${party.replace(/`/g, '\\`')})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j).replace(/`/g, '\\`')}<span style="margin-left: 5px;">${partyPortraitHtml(party).replace(/`/g, '\\`')}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${safeEducation}</td></tr>`;
-      }).join('');
-      schoolResults.style.display = 'block';
+      const sortedList = judgesList.sort((a, b) => a.name.localeCompare(b.name));
+      let htmlList = `<h2>Judges affiliated with ${school}</h2>`;
+      if (sortedList.length) {
+        htmlList += '<table style="border-collapse: collapse; width: 100%;">';
+        htmlList +=
+          '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Court', '') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
+        sortedList.forEach((j) => {
+          const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
+          const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+          const img = portraitHtml(j);
+          const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
+          const party = presidentParty[j.appointed_by] || "";
+          const education = j.education_items ? j.education_items.map(item => `${item.school.replace(/`/g, '\\`')} (${item.degree})`).join(', ') : j.education || '';
+          const safeEducation = education.replace(/"/g, '\\"').replace(/'/g, "\\'").replace(/`/g, '\\`');
+          htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img.replace(/`/g, '\\`')}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;">${j.court.replace(/`/g, '\\`')}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${(j.appointed_by || '').replace(/`/g, '\\`')} (${party.replace(/`/g, '\\`')})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j).replace(/`/g, '\\`')}<span style="margin-left: 5px;">${partyPortraitHtml(party).replace(/`/g, '\\`')}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${safeEducation}</td></tr>`;
+        });
+        htmlList += "</table>";
+      } else {
+        htmlList += "<p>No judges found.</p>";
+      }
+      showJudgePopup(htmlList);
     })
 
   }catch (e) {
