@@ -67,12 +67,14 @@ def approve(j,page):
     body=page.get("extract","")
     return court_context(j,body)
 def update_portrait(j,page):
-    if j.get("image_url"):return False
+    if j.get("image_url") and not ("??" in j["image_url"] or "en.wikipedia.org/wiki/File:" in j["image_url"]):return False
     image=page.get("thumbnail",{}).get("source","")
     # pageimages obtains images from actual article. Never use a disambiguation page image.
     if not image.startswith("https://upload.wikimedia.org/"):return False
     j["image_url"]=image
     j["portrait_source"]="wikipedia-pageimages"
+    j["portrait_source_url"]=url(page["title"])
+    j["portrait_verified"]=False
     return True
 def main():
     data=json.loads(PATH.read_text(encoding="utf-8"))
