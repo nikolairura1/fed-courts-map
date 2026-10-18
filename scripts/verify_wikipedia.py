@@ -116,5 +116,5 @@ def main():
             stats["pending"]+=1
     # Never publish a half-finished validation if the API fails.
     PATH.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    print(json.dumps(stats))
+    print(json.dumps(stats, sort_keys=True))
 if __name__=="__main__":main()
