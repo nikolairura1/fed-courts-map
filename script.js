@@ -679,115 +679,121 @@ function showPortraitPlaceholder(imgEl) {
       "R": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Republicanlogo.svg/50px-Republicanlogo.svg.png"
     };
 
-    schoolToJudges = new Map();
-    schoolsList = [];
-
-    function buildSchoolIndex() {
-      function processJudges(judgesArray, courtName) {
-        judgesArray.forEach(j => {
-          if (j.education_items) {
-            j.education_items.forEach(item => {
-              if (item.school) {
-                if (!schoolToJudges.has(item.school)) {
-                  schoolToJudges.set(item.school, []);
-                }
-                schoolToJudges.get(item.school).push({ ...j, court: courtName });
-              }
-            });
-          }
-        });
+    // Academic search is intentionally isolated: failures cannot stop map loading.
+    try {
+      const institutionIndex = new Map();
+      const escapeSchool = v => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      const schoolInput = document.getElementById('schoolInput');
+      const suggestions = document.getElementById('suggestions');
+      const searchBtn = document.getElementById('searchBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const careerRole = /\b(professor|lecturer|instructor|faculty|teaching fellow|adjunct|visiting scholar|dean of|law school dean)\b/i;
+      function careerAppointments(j) {
+        if (Array.isArray(j.academic_appointments)) return j.academic_appointments;
+        return (j.professional_career || []).flatMap(v => String(v).split(/;\s*/))
+          .filter(v => careerRole.test(v)).map(v => ({description:v.trim()}));
       }
-
-      // Process all judges
-      for (const key in judges) {
-        if (key !== 'last_updated_utc' && judges[key].judges) {
-          processJudges(judges[key].judges, judges[key].district_name || key);
-        }
-      }
-      if (judges.by_jdcode) {
-        for (const jd in judges.by_jdcode) {
-          const entry = judges.by_jdcode[jd];
-          if (entry.judges) {
-            processJudges(entry.judges, entry.district_name || `District ${jd}`);
+      function institutionName(description) {
+        // Do not infer employment from degrees; accept only explicitly academic career entries.
+        const patterns = [
+          /\bUniversity of [A-Za-zÀ-ž&.' -]+/i,
+          /\b[A-Za-zÀ-ž&.' -]+? University\b/i,
+          /\b[A-Za-zÀ-ž&.' -]+? (?:Law School|School of Law|College of Law)\b/i
+        ];
+        for (const pattern of patterns) {
+          const match = description.match(pattern);
+          if (match) {
+            let name = match[0].replace(/^(?:at|of|the|and|for|with|professor at|lecturer at)\s+/i,'').trim();
+            name = name.replace(/\s+(?:from|through|to|and|at|of)\s*$/i,'').trim();
+            if (name.length > 4) return name;
           }
         }
+        return '';
       }
-      if (judges.by_circuit) {
-        for (const circ in judges.by_circuit) {
-          if (circ !== 'SCOTUS') {
-            const entry = judges.by_circuit[circ];
-            if (entry.judges) {
-              processJudges(entry.judges, entry.district_name || `Circuit ${circ}`);
+      function addInstitution(name, j, court, connection) {
+        if (typeof name !== 'string' || !name.trim()) return;
+        name = name.trim();
+        if (!institutionIndex.has(name)) institutionIndex.set(name, new Map());
+        const id = String(j.fjc_nid || j.name) + ':' + court;
+        const records = institutionIndex.get(name);
+        if (!records.has(id)) records.set(id,{judge:j,court,connections:[]});
+        const list = records.get(id).connections;
+        if (!list.some(c=>c.type===connection.type && c.description===connection.description))
+          list.push(connection);
+      }
+      const visited = new Set();
+      for (const [kind, groups] of [['district',judges.by_jdcode || {}],['circuit',judges.by_circuit || {}]]) {
+        for (const [key, entry] of Object.entries(groups)) {
+          const court = entry.district_name || (kind === 'district' ? 'District ' : 'Circuit ') + key;
+          for (const j of [...(entry.judges || []),...(entry.senior_judges || [])]) {
+            const identity = String(j.fjc_nid || j.name) + ':' + kind + ':' + key;
+            if (visited.has(identity)) continue;
+            visited.add(identity);
+            for (const item of j.education_items || [])
+              addInstitution(item.school,j,court,{type:'degree',description:(item.degree || '')+'|'+(item.year || ''),item});
+            for (const item of careerAppointments(j)) {
+              const description = String(item.description || '').trim();
+              if (!description) continue;
+              addInstitution(item.institution || institutionName(description) || description,j,court,
+                {type:'faculty',description,item});
             }
           }
         }
       }
-      schoolsList = Array.from(schoolToJudges.keys()).sort();
+      const institutions = [...institutionIndex.keys()].sort();
+      function matches(query) {
+        const found = new Map();
+        for (const [name, records] of institutionIndex) {
+          if (!name.toLowerCase().includes(query.toLowerCase())) continue;
+          for (const [id, record] of records) {
+            if (!found.has(id)) found.set(id,{...record,connections:[]});
+            for (const c of record.connections)
+              if (!found.get(id).connections.some(x=>x.type===c.type && x.description===c.description))
+                found.get(id).connections.push(c);
+          }
+        }
+        return [...found.values()].sort((a,b)=>a.judge.name.localeCompare(b.judge.name));
+      }
+      schoolInput.addEventListener('input', () => {
+        const query = schoolInput.value.trim().toLowerCase();
+        suggestions.replaceChildren();
+        if (query.length < 2) { suggestions.style.display='none'; return; }
+        for (const name of institutions.filter(n=>n.toLowerCase().includes(query)).slice(0,10)) {
+          const div = document.createElement('div');
+          div.textContent=name;
+          div.style.cssText='padding:5px;cursor:pointer';
+          div.addEventListener('click',()=>{schoolInput.value=name;suggestions.style.display='none';});
+          suggestions.appendChild(div);
+        }
+        suggestions.style.display = suggestions.childElementCount ? 'block' : 'none';
+      });
+      clearBtn.addEventListener('click',()=>{schoolInput.value='';suggestions.style.display='none';});
+      searchBtn.addEventListener('click',()=>{
+        const query=schoolInput.value.trim();
+        if (!query) return;
+        let output='<h2>Academic connections: '+escapeSchool(query)+'</h2>';
+        const results=matches(query);
+        if (!results.length) {showJudgePopup(output+'<p>No judges found.</p>');return;}
+        output+='<table style="border-collapse:collapse;width:100%"><tr><th>Portrait</th><th>Judge</th><th>Court</th><th>Degree or appointment (dates)</th></tr>';
+        for (const record of results) {
+          const j=record.judge;
+          const descriptions=record.connections.map(c=>{
+            if (c.type==='degree') return '<div><strong>Degree:</strong> '+escapeSchool(c.item.degree || 'Degree unspecified')+
+              ' ('+escapeSchool(c.item.year || 'year not listed')+')</div>';
+            const desc=c.description;
+            return '<div><strong>Teaching / faculty:</strong> '+escapeSchool(desc)+
+              (/\b(?:18|19|20)\d{2}\b/.test(desc)?'':' (dates not listed)')+'</div>';
+          }).join('');
+          output+='<tr><td>'+portraitHtml(j)+'</td><td><a target="_blank" rel="noopener noreferrer" href="'+
+            escapeSchool(judgeProfileUrl(j))+'">'+escapeSchool(j.name)+'</a></td><td>'+
+            escapeSchool(record.court)+'</td><td>'+descriptions+'</td></tr>';
+        }
+        showJudgePopup(output+'</table>');
+      });
+    } catch (academicSearchError) {
+      console.error('Academic search unavailable; map remains usable:',academicSearchError);
     }
-
-    buildSchoolIndex();
-
-    // School search
-    const schoolInput = document.getElementById('schoolInput');
-    const suggestions = document.getElementById('suggestions');
-    const searchBtn = document.getElementById('searchBtn');
-    const clearBtn = document.getElementById('clearBtn');
-
-    schoolInput.addEventListener('input', () => {
-      const query = schoolInput.value.toLowerCase();
-      if (query.length < 2) {
-        suggestions.style.display = 'none';
-        return;
-      }
-      const matches = schoolsList.filter(s => s.toLowerCase().includes(query)).slice(0, 10);
-      if (matches.length) {
-        suggestions.innerHTML = matches.map(s => `<div style="padding: 5px; cursor: pointer;" onclick="selectSchool('${s.replace(/'/g, "\\'").replace(/"/g, '\\"')}')">${s}</div>`).join('');
-        suggestions.style.display = 'block';
-      } else {
-        suggestions.style.display = 'none';
-      }
-    });
-
-    window.selectSchool = function(school) {
-      schoolInput.value = school;
-      suggestions.style.display = 'none';
-    };
-
-    clearBtn.addEventListener('click', () => {
-      schoolInput.value = '';
-      suggestions.style.display = 'none';
-    });
-
-    searchBtn.addEventListener('click', () => {
-      const school = schoolInput.value.trim();
-      if (!school) return;
-      const judgesList = schoolToJudges.get(school);
-      if (!judgesList) {
-        alert('No judges found for that school.');
-        return;
-      }
-      const sortedList = judgesList.sort((a, b) => a.name.localeCompare(b.name));
-      let htmlList = `<h2>Judges affiliated with ${school}</h2>`;
-      if (sortedList.length) {
-        htmlList += '<table style="border-collapse: collapse; width: 100%;">';
-        htmlList +=
-          '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Court', '') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
-        sortedList.forEach((j) => {
-          const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-          const url = judgeProfileUrl(j);
-          const img = portraitHtml(j);
-          const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-          const party = presidentParty[j.appointed_by] || "";
-          const education = j.education_items ? j.education_items.map(item => `${item.school.replace(/`/g, '\\`')} (${item.degree})`).join(', ') : j.education || '';
-          const safeEducation = education.replace(/"/g, '\\"').replace(/'/g, "\\'").replace(/`/g, '\\`');
-          htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img.replace(/`/g, '\\`')}</td><td style="border: 1px solid #ccc; padding: 5px;">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;">${j.court.replace(/`/g, '\\`')}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${(j.appointed_by || '').replace(/`/g, '\\`')} (${party.replace(/`/g, '\\`')})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j).replace(/`/g, '\\`')}<span style="margin-left: 5px;">${partyPortraitHtml(party).replace(/`/g, '\\`')}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${safeEducation}</td></tr>`;
-        });
-        htmlList += "</table>";
-      } else {
-        htmlList += "<p>No judges found.</p>";
-      }
-      showJudgePopup(htmlList);
-    })
 
   }catch (e) {
     console.error(e);
