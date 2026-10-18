@@ -58,13 +58,14 @@ def court_key(row):
 
 
 def academic_appointments(career):
-    """Extract explicit teaching/faculty entries without treating attendance as employment."""
-    role=re.compile(r"\\b(professor|lecturer|instructor|faculty|teaching fellow|adjunct|visiting scholar|dean of|law school dean)\\b",re.I)
+    """Keep explicit FJC faculty roles, including their verbatim dates."""
+    role=re.compile(r"\b(professor|lecturer|instructor|faculty|teaching fellow|adjunct|visiting scholar|dean of|law school dean)\b", re.I)
     output=[]
     for item in career:
-        for part in re.split(r";\\s*",item):
-            if role.search(part) and part.strip() and not any(x["description"]==part.strip() for x in output):
-                output.append({"description":part.strip(),"source":"FJC professional career"})
+        for part in re.split(r";\s*", item):
+            part=part.strip()
+            if part and role.search(part) and not any(x["description"]==part for x in output):
+                output.append({"description":part,"source":"FJC professional career"})
     return output
 
 def main():
