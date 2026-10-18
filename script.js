@@ -268,7 +268,9 @@ function showPortraitPlaceholder(imgEl) {
     const titleAttr = safeTitle.replace(/"/g, '&quot;');
     const portrait = initial
       ? `<img src="${String(initial).replace(/"/g, '&quot;')}" width="40" height="50" style="object-fit:cover; border-radius:3px; border:1px solid #ddd;" data-wikititle="${titleAttr}" onerror="window.handlePortraitError(this)" loading="lazy" alt="Portrait of ${String(j.name || 'judge').replace(/"/g, '&quot;')}">`
-      : '<span style="width:40px;height:50px;background:#f5f5f5;border:1px solid #ddd;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#777;text-align:center;">No Photo</span>';
+      : j.wikipedia_url_verified
+        ? `<img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" width="40" height="50" style="object-fit:cover;border-radius:3px;border:1px solid #ddd" data-wikititle="${titleAttr}" loading="lazy" alt="Portrait of ${String(j.name || 'judge').replace(/"/g, '&quot;')}" onload="if(!this.dataset.portraitTried) window.handlePortraitError(this)">`
+        : '<span style="width:40px;height:50px;background:#f5f5f5;border:1px solid #ddd;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#777;text-align:center;">No Photo</span>';
     return fjcUrl
       ? `<a href="${fjcUrl}" target="_blank" rel="noopener noreferrer" title="Official FJC biography of ${String(j.name || '').replace(/"/g, '&quot;')}" aria-label="FJC biography of ${String(j.name || '').replace(/"/g, '&quot;')}" style="display:inline-block;">${portrait}</a>`
       : portrait;
@@ -407,18 +409,18 @@ function showPortraitPlaceholder(imgEl) {
   // --------------------------------------------------------------------------
 
 
-  const districtMap = L.map("districtMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.5, -98.35], 4);
+  const districtMap = L.map("districtMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.3, -98.5], 4);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(districtMap);
 
-  const circuitMap = L.map("circuitMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.5, -98.35], 4);
+  const circuitMap = L.map("circuitMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.3, -98.5], 4);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(circuitMap);
 
   // SCOTUS map
-  const scotusMap = L.map("scotusMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.5, -98.35], 4);
+  const scotusMap = L.map("scotusMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.3, -98.5], 4);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(scotusMap);
@@ -821,7 +823,7 @@ function showPortraitPlaceholder(imgEl) {
         });
       }
     }).addTo(scotusMap);
-    scotusMap.fitBounds(scotusLayer.getBounds());
+    scotusMap.fitBounds([[24.5, -125], [49.5, -66.5]], { padding: [12, 12] });
 
     // Circuit layer
     const circuitLayer = L.geoJSON(districtsGeoJSON, {
@@ -919,7 +921,7 @@ function showPortraitPlaceholder(imgEl) {
       }
     }).addTo(circuitMap);
 
-    circuitMap.fitBounds(circuitLayer.getBounds());
+    circuitMap.fitBounds([[24.5, -125], [49.5, -66.5]], { padding: [12, 12] });
 
     // District layer
     const districtLayer = L.geoJSON(districtsGeoJSON, {
@@ -996,7 +998,7 @@ function showPortraitPlaceholder(imgEl) {
       }
     }).addTo(districtMap);
 
-    districtMap.fitBounds(districtLayer.getBounds());
+    // Keep the initial view focused on the contiguous 48 states.\n    districtMap.fitBounds([[24.5, -125], [49.5, -66.5]], { padding: [12, 12] });
   }
 
 });
