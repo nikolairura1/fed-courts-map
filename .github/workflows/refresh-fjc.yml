@@ -7,6 +7,7 @@ on:
       - '.github/workflows/refresh-fjc.yml'
       - 'scripts/verify_wikipedia.py'
       - 'scripts/audit_recent_portraits.py'
+      - 'scripts/discover_official_portraits.py'
   schedule:
     - cron: '25 9 * * *'
 concurrency:
@@ -26,13 +27,15 @@ jobs:
         run: python scripts/update_fjc.py
       - name: Verify judge Wikipedia article links
         run: python scripts/verify_wikipedia.py
+      - name: Identify official court biography portraits
+        run: python scripts/discover_official_portraits.py
       - name: Audit official photo provenance for recent appointments
         run: python scripts/audit_recent_portraits.py
       - name: Commit reconciled roster
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add judgesFJC2.json fjc-audit.json recent-judge-portrait-audit.json
+          git add judgesFJC2.json fjc-audit.json recent-judge-portrait-audit.json official-portrait-discovery.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh judicial roster from FJC"
             git push
