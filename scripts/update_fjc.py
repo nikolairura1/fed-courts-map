@@ -56,6 +56,17 @@ def court_key(row):
     if match:return ("district",match.group(1))
     return None
 
+
+def academic_appointments(career):
+    """Extract explicit teaching/faculty entries without treating attendance as employment."""
+    role=re.compile(r"\\b(professor|lecturer|instructor|faculty|teaching fellow|adjunct|visiting scholar|dean of|law school dean)\\b",re.I)
+    output=[]
+    for item in career:
+        for part in re.split(r";\\s*",item):
+            if role.search(part) and part.strip() and not any(x["description"]==part.strip() for x in output):
+                output.append({"description":part.strip(),"source":"FJC professional career"})
+    return output
+
 def main():
     rows={name:load_csv(name) for name in FILES}
     old=json.loads((ROOT/"judgesFJC2.json").read_text(encoding="utf8"))
@@ -120,7 +131,7 @@ def main():
         judge.update({"name":name,"status":"Senior" if senior else "Active","appointed_by":latest.get("Appointing President") or "",
                       "assumed_office":latest.get("Commission Date") or latest.get("Recess Appointment Date") or "",
                       "education":"; ".join(f'{x["school"]} ({x["degree"]}{", "+x["year"] if x["year"] else ""})' for x in educ),
-                      "education_items":educ,"professional_career":career,"fjc_nid":nid,
+                      "education_items":educ,"professional_career":career,"academic_appointments":academic_appointments(career),"fjc_nid":nid,
                       "fjc_jid":dem.get("jid","") if dem else "",
                       "service":[{"court_type":a["Court Type"],"court":a["Court Name"],
                                   "appointing_president":a.get("Appointing President",""),
