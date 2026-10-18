@@ -116,7 +116,7 @@ def main():
             continue  # Retired justices are not members of the sitting nine.
         educ=edu.get(nid,[])
         career=careers.get(nid,[])
-        judge={k:prior[k] for k in ("image_url","wiki_title","wikipedia_url_verified") if prior.get(k)}
+        judge={k:prior[k] for k in ("image_url","wiki_title","wikipedia_url_verified","portrait_source","portrait_source_url","portrait_verified","portrait_attribution") if prior.get(k)}
         judge.update({"name":name,"status":"Senior" if senior else "Active","appointed_by":latest.get("Appointing President") or "",
                       "assumed_office":latest.get("Commission Date") or latest.get("Recess Appointment Date") or "",
                       "education":"; ".join(f'{x["school"]} ({x["degree"]}{", "+x["year"] if x["year"] else ""})' for x in educ),
