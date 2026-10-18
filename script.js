@@ -264,15 +264,14 @@ function showPortraitPlaceholder(imgEl) {
   function portraitHtml(j) {
     const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
     const initial = j.image_url ? fixCommonsThumbUrl(j.image_url, 250) : null;
-
-    // If we don't even have an initial URL, show placeholder
-    if (!initial) return '<div style="width:40px; height:50px; background:#f5f5f5; border:1px solid #ddd; border-radius:3px; display:flex; align-items:center; justify-content:center; font-size:8px; color:#999; text-align:center;">No Photo</div>';
-
-    // Use onerror with mobile-friendly fallback
-    const titleAttr = safeTitle.replace(/"/g, "&quot;");
-    const srcAttr = String(initial).replace(/"/g, "&quot;");
-
-    return `<img src="${srcAttr}" width="40" height="50" style="object-fit:cover; border-radius:3px; border:1px solid #ddd;" data-wikititle="${titleAttr}" onerror="window.handlePortraitError(this)" loading="lazy">`;
+    const fjcUrl = j.fjc_nid ? 'https://www.fjc.gov/node/' + encodeURIComponent(j.fjc_nid) : null;
+    const titleAttr = safeTitle.replace(/"/g, '&quot;');
+    const portrait = initial
+      ? `<img src="${String(initial).replace(/"/g, '&quot;')}" width="40" height="50" style="object-fit:cover; border-radius:3px; border:1px solid #ddd;" data-wikititle="${titleAttr}" onerror="window.handlePortraitError(this)" loading="lazy" alt="Portrait of ${String(j.name || 'judge').replace(/"/g, '&quot;')}">`
+      : '<span style="width:40px;height:50px;background:#f5f5f5;border:1px solid #ddd;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#777;text-align:center;">No Photo</span>';
+    return fjcUrl
+      ? `<a href="${fjcUrl}" target="_blank" rel="noopener noreferrer" title="Official FJC biography of ${String(j.name || '').replace(/"/g, '&quot;')}" aria-label="FJC biography of ${String(j.name || '').replace(/"/g, '&quot;')}" style="display:inline-block;">${portrait}</a>`
+      : portrait;
   }
 
   function presidentPortraitHtml(j) {
