@@ -800,135 +800,70 @@ function showPortraitPlaceholder(imgEl) {
   // Add layers after data is loaded
   // --------------------------------------------------------------------------
   if (districtsGeoJSON && judges && jdcodeToCircuit && circuitColors) {
-    // SCOTUS layer: color all districts blue
+    // Shared appellate roster renderer. Senior judges have a separate table.
+    function appellateRosterTable(list) {
+      const sorted = [...(list || [])].sort((a, b) => a.name.localeCompare(b.name));
+      if (!sorted.length) return '<p>No judges found.</p>';
+      let html = '<table style="border-collapse:collapse;width:100%;">';
+      html += '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
+      sorted.forEach(j => {
+        const url = judgeProfileUrl(j);
+        const img = portraitHtml(j);
+        const nameLink = '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + j.name.replace(/`/g, "&#96;") + '</a>';
+        const party = presidentParty[j.appointed_by] || '';
+        html += `<tr><td style="border:1px solid #ccc;padding:5px;">${img}</td><td style="border:1px solid #ccc;padding:5px;">${nameLink}</td><td style="border:1px solid #ccc;padding:5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display:flex;align-items:center;justify-content:center;margin-top:5px;">${presidentPortraitHtml(j)}<span style="margin-left:5px;">${partyPortraitHtml(party)}</span></div></td><td style="border:1px solid #ccc;padding:5px;">${j.education || ''}</td></tr>`;
+      });
+      return html + '</table>';
+    }
+
+    function appellateRoster(entry, activeTitle = 'Active Judges', seniorTitle = 'Senior Judges') {
+      const active = [...(entry?.judges || []), ...(entry?.senior_judges || [])]
+        .filter(j => String(j.status || '').toLowerCase() !== 'senior');
+      const senior = [...(entry?.judges || []), ...(entry?.senior_judges || [])]
+        .filter(j => String(j.status || '').toLowerCase() === 'senior');
+      // Some historic records identify senior status only by roster placement.
+      const seniorIds = new Set((entry?.senior_judges || []).map(j => String(j.fjc_nid || j.name)));
+      const actualActive = active.filter(j => !seniorIds.has(String(j.fjc_nid || j.name)));
+      const actualSenior = [...senior, ...active.filter(j => seniorIds.has(String(j.fjc_nid || j.name)))];
+      return `<section class="judge-roster-section"><h3>${activeTitle}</h3>${appellateRosterTable(actualActive)}</section>` +
+        `<section class="judge-roster-section"><h3>${seniorTitle}</h3>${appellateRosterTable(actualSenior)}</section>`;
+    }
+
+    // SCOTUS: separate active and retired/senior judicial rosters.
     const scotusLayer = L.geoJSON(districtsGeoJSON, {
       style: () => ({ fillColor: "#1e90ff", weight: 1, fillOpacity: 0.7 }),
-      onEachFeature: (feature, l) => {
-        l.on("click", () => {
-          // Get SCOTUS justices from judges.by_circuit.SCOTUS
+      onEachFeature: (feature, layer) => {
+        layer.on("click", () => {
           const entry = judges.by_circuit?.SCOTUS;
-          const list = entry?.judges || [];
-          const sortedList = list.sort((a, b) => a.name.localeCompare(b.name));
-          let htmlList = "";
-          if (sortedList.length) {
-            htmlList = '<table style="border-collapse: collapse; width: 100%;">';
-            htmlList +=
-              '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
-            sortedList.forEach((j) => {
-              const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-              const url = judgeProfileUrl(j);
-              const img = portraitHtml(j);
-              const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-              const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
-              const party = presidentParty[j.appointed_by] || "";
-              htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
-            });
-            htmlList += "</table>";
-          } else {
-            htmlList = "<p>No justices found.</p>";
-          }
-          showJudgePopup(`<h2>Supreme Court of the United States</h2>${htmlList}`);
+          showJudgePopup('<h2>Supreme Court of the United States</h2>' +
+            appellateRoster(entry, 'Sitting Justices', 'Senior / Retired Justices'));
         });
       }
     }).addTo(scotusMap);
     scotusMap.fitBounds([[24.5, -125], [49.5, -66.5]], { padding: [12, 12] });
 
-    // Circuit layer
     const circuitLayer = L.geoJSON(districtsGeoJSON, {
-      style: (feature) => {
+      style: feature => {
         const circuit = jdcodeToCircuit[feature.properties.jdcode];
         return { fillColor: circuitColors[circuit] || "#cccccc", weight: 1, fillOpacity: 0.7 };
       },
-      onEachFeature: (feature, l) => {
-        l.on("click", () => {
+      onEachFeature: (feature, layer) => {
+        layer.on("click", () => {
           const props = feature.properties || {};
-          const jdcode = props.jdcode;
-          const circuit = jdcodeToCircuit[jdcode];
-          const districtLabel = props.name || props.jdcode || "District";
-
-          console.log('Clicked jdcode:', jdcode, 'circuit:', circuit);
-
-          const entry = judges.by_circuit?.[circuit];
-          console.log('entry:', entry);
-          const list = entry?.judges || [];
-
-          console.log('Circuit:', circuit, 'List length:', list.length);
-
-          let htmlList = "";
-          if (circuit == 12) {
-            // Show both DC and Federal circuits
-            const dcEntry = judges.by_circuit?.["12"];
-            const dcList = dcEntry?.judges || [];
-            const fedEntry = judges.by_circuit?.["13"];
-            const fedList = fedEntry?.judges || [];
-
-            htmlList += "<h3>District of Columbia Circuit</h3>";
-            const sortedDcList = dcList.sort((a, b) => a.name.localeCompare(b.name));
-            if (sortedDcList.length) {
-              htmlList += '<table style="border-collapse: collapse; width: 100%;">';
-              htmlList +=
-                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
-              sortedDcList.forEach((j) => {
-                const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-                const url = judgeProfileUrl(j);
-                const img = portraitHtml(j);
-                const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-                const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
-              });
-              htmlList += "</table>";
-            } else {
-              htmlList += "<p>No judges found.</p>";
-            }
-
-            htmlList += "<h3>Federal Circuit</h3>";
-            const sortedFedList = fedList.sort((a, b) => a.name.localeCompare(b.name));
-            if (sortedFedList.length) {
-              htmlList += '<table style="border-collapse: collapse; width: 100%;">';
-              htmlList +=
-                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
-              sortedFedList.forEach((j) => {
-                const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-                const url = judgeProfileUrl(j);
-                const img = portraitHtml(j);
-                const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-                const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
-              });
-              htmlList += "</table>";
-            } else {
-              htmlList += "<p>No judges found.</p>";
-            }
+          const circuit = jdcodeToCircuit[props.jdcode];
+          let content;
+          if (String(circuit) === '12') {
+            content = '<h2>District of Columbia Circuit</h2>' +
+              appellateRoster(judges.by_circuit?.['12']) +
+              '<h2>Federal Circuit</h2>' +
+              appellateRoster(judges.by_circuit?.['13']);
           } else {
-            const entry = judges.by_circuit?.[circuit];
-            const list = entry?.judges || [];
-            const sortedList = list.sort((a, b) => a.name.localeCompare(b.name));
-
-            if (sortedList.length) {
-              htmlList = '<table style="border-collapse: collapse; width: 100%;">';
-              htmlList +=
-                '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
-
-              sortedList.forEach((j) => {
-                const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-                const url = judgeProfileUrl(j);
-                const img = portraitHtml(j);
-                const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
-                const party = presidentParty[j.appointed_by] || "";
-                htmlList += `<tr><td style="border: 1px solid #ccc; padding: 5px;">${img}</td><td style="border: 1px solid #ccc; padding: 5px">${nameLink}</td><td style="border: 1px solid #ccc; padding: 5px;"><div>${j.appointed_by || ''} (${party})</div><div style="display: flex; align-items: center; justify-content: center; margin-top: 5px;">${presidentPortraitHtml(j)}<span style="margin-left: 5px;">${partyPortraitHtml(party)}</span></div></td><td style="border: 1px solid #ccc; padding: 5px;">${j.education || ''}</td></tr>`;
-              });
-
-              htmlList += "</table>";
-            } else {
-              htmlList = "<p>No judges found.</p>";
-            }
+            content = `<h2>Circuit ${circuit}</h2>` + appellateRoster(judges.by_circuit?.[circuit]);
           }
-
-          showJudgePopup(`<h2>Circuit ${circuit} (${districtLabel} example)</h2>${htmlList}`);
+          showJudgePopup(content);
         });
       }
     }).addTo(circuitMap);
-
     circuitMap.fitBounds([[24.5, -125], [49.5, -66.5]], { padding: [12, 12] });
 
     // District layer
