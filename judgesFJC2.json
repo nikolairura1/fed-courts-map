@@ -43157,7 +43157,12 @@
             }
           ],
           "judicial_status": "active",
-          "court_type": "article_iii"
+          "court_type": "article_iii",
+          "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kasdin%20M.%20Mitchell.png",
+          "portrait_source": "U.S. Senate Judiciary Committee",
+          "portrait_source_url": "https://commons.wikimedia.org/wiki/File:Kasdin_M._Mitchell.png",
+          "portrait_verified": true,
+          "portrait_attribution": "U.S. Senate Judiciary Committee, nomination hearing June 10, 2026 (public domain U.S. government work)"
         },
         {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Judge_Mark_T._Pittman_%28cropped%29.jpg/250px-Judge_Mark_T._Pittman_%28cropped%29.jpg",
