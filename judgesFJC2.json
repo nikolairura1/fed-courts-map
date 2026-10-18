@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-10-18T16:43:05.549978+00:00",
+  "last_updated_utc": "2026-10-18T16:47:09.472725+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -43118,8 +43118,13 @@
           "court_type": "article_iii"
         },
         {
+          "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kasdin%20M.%20Mitchell.png",
           "wiki_title": "Kasdin_Mitchell",
           "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Kasdin_Mitchell",
+          "portrait_source": "U.S. Senate Judiciary Committee",
+          "portrait_source_url": "https://commons.wikimedia.org/wiki/File:Kasdin_M._Mitchell.png",
+          "portrait_verified": true,
+          "portrait_attribution": "U.S. Senate Judiciary Committee, nomination hearing June 10, 2026 (public domain U.S. government work)",
           "name": "Kasdin Miller Mitchell",
           "status": "Active",
           "appointed_by": "Donald J. Trump",
@@ -43157,12 +43162,7 @@
             }
           ],
           "judicial_status": "active",
-          "court_type": "article_iii",
-          "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kasdin%20M.%20Mitchell.png",
-          "portrait_source": "U.S. Senate Judiciary Committee",
-          "portrait_source_url": "https://commons.wikimedia.org/wiki/File:Kasdin_M._Mitchell.png",
-          "portrait_verified": true,
-          "portrait_attribution": "U.S. Senate Judiciary Committee, nomination hearing June 10, 2026 (public domain U.S. government work)"
+          "court_type": "article_iii"
         },
         {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Judge_Mark_T._Pittman_%28cropped%29.jpg/250px-Judge_Mark_T._Pittman_%28cropped%29.jpg",

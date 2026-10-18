@@ -1,10 +1,10 @@
 {
-  "as_of_utc": "2026-10-18T16:43:48.034035+00:00",
+  "as_of_utc": "2026-10-18T16:48:16.313353+00:00",
   "scope": "commission since 2025-01-01",
   "number_of_judges": 64,
-  "with_images": 42,
-  "official_verified": 0,
-  "missing_images": 22,
+  "with_images": 43,
+  "official_verified": 1,
+  "missing_images": 21,
   "judges": [
     {
       "fjc_nid": "13762106",
@@ -407,11 +407,11 @@
       "name": "Kasdin Miller Mitchell",
       "court": "U.S. District Court for the Northern District of Texas",
       "commission": "2026-10-02",
-      "image_url": null,
-      "portrait_source": null,
-      "portrait_source_url": null,
-      "official_verified": false,
-      "status": "missing-image"
+      "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kasdin%20M.%20Mitchell.png",
+      "portrait_source": "U.S. Senate Judiciary Committee",
+      "portrait_source_url": "https://commons.wikimedia.org/wiki/File:Kasdin_M._Mitchell.png",
+      "official_verified": true,
+      "status": "official-verified"
     },
     {
       "fjc_nid": "13762128",
