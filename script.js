@@ -409,18 +409,26 @@ function showPortraitPlaceholder(imgEl) {
   // --------------------------------------------------------------------------
 
 
-  const districtMap = L.map("districtMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.3, -98.5], 4);
+  // Explicit attribution avoids third-party banners while retaining license credits.
+  function addMapAttribution(map) {
+    L.control.attribution({ prefix: '<a href="https://leafletjs.com/" target="_blank" rel="noopener">Leaflet</a>' })
+      .addTo(map)
+      .addAttribution('© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors');
+  }
+
+  const districtMap = L.map("districtMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]], attributionControl: false }).setView([39.3, -98.5], 4);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(districtMap);
 
-  const circuitMap = L.map("circuitMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.3, -98.5], 4);
+  const circuitMap = L.map("circuitMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]], attributionControl: false }).setView([39.3, -98.5], 4);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(circuitMap);
 
   // SCOTUS map
-  const scotusMap = L.map("scotusMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]] }).setView([39.3, -98.5], 4);
+  const scotusMap = L.map("scotusMap", { worldCopyJump: false, minZoom: 2, maxZoom: 10, maxBounds: [[-90, -180], [90, 180]], attributionControl: false }).setView([39.3, -98.5], 4);
+  [districtMap, circuitMap, scotusMap].forEach(addMapAttribution);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(scotusMap);
@@ -998,7 +1006,8 @@ function showPortraitPlaceholder(imgEl) {
       }
     }).addTo(districtMap);
 
-    // Keep the initial view focused on the contiguous 48 states.\n    districtMap.fitBounds([[24.5, -125], [49.5, -66.5]], { padding: [12, 12] });
+    // Keep the initial view focused on the contiguous 48 states.
+    districtMap.fitBounds([[24.5, -125], [49.5, -66.5]], { padding: [12, 12] });
   }
 
 });
