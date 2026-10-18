@@ -112,6 +112,8 @@ def main():
         prior=old_candidates[0] if old_candidates else {}
         latest=max(appointments,key=lambda r:r.get("Commission Date",""))
         senior=any(a.get("Senior Status Date","").strip() and a["Senior Status Date"]<=TODAY for a in appointments)
+        if dest == ("circuit","SCOTUS") and senior:
+            continue  # Retired justices are not members of the sitting nine.
         educ=edu.get(nid,[])
         career=careers.get(nid,[])
         judge={k:prior[k] for k in ("image_url","wiki_title") if prior.get(k)}
