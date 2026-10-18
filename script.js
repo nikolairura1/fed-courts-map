@@ -252,11 +252,13 @@ function showPortraitPlaceholder(imgEl) {
 }
 
 
-  // FJC profiles are permanent, authoritative links; never fabricate a Wikipedia slug.
+  // Prefer Wikipedia when the article has been verified against its API.
+  // Otherwise open Wikipedia search, not an invented biography URL.
   function judgeProfileUrl(j) {
-    if (j.fjc_nid) return 'https://www.fjc.gov/node/' + encodeURIComponent(j.fjc_nid);
-    if (j.wikipedia_url_verified) return j.wikipedia_url_verified;
-    return 'https://www.fjc.gov/history/judges';
+    if (j.wikipedia_url_verified && /^https:\/\/en\.wikipedia\.org\/wiki\//.test(j.wikipedia_url_verified)) {
+      return j.wikipedia_url_verified;
+    }
+    return 'https://en.wikipedia.org/w/index.php?search=' + encodeURIComponent(j.name || 'federal judge');
   }
 
   function portraitHtml(j) {
