@@ -8,6 +8,9 @@ on:
       - 'scripts/verify_wikipedia.py'
   schedule:
     - cron: '25 9 * * *'
+concurrency:
+  group: fjc-refresh-main
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
