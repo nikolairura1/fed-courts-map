@@ -252,6 +252,13 @@ function showPortraitPlaceholder(imgEl) {
 }
 
 
+  // FJC profiles are permanent, authoritative links; never fabricate a Wikipedia slug.
+  function judgeProfileUrl(j) {
+    if (j.fjc_nid) return 'https://www.fjc.gov/node/' + encodeURIComponent(j.fjc_nid);
+    if (j.wikipedia_url_verified) return j.wikipedia_url_verified;
+    return 'https://www.fjc.gov/history/judges';
+  }
+
   function portraitHtml(j) {
     const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
     const initial = j.image_url ? fixCommonsThumbUrl(j.image_url, 250) : null;
@@ -756,7 +763,7 @@ function showPortraitPlaceholder(imgEl) {
           '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Court', '') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
         sortedList.forEach((j) => {
           const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-          const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+          const url = judgeProfileUrl(j);
           const img = portraitHtml(j);
           const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
           const party = presidentParty[j.appointed_by] || "";
@@ -798,7 +805,7 @@ function showPortraitPlaceholder(imgEl) {
               '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
             sortedList.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-              const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+              const url = judgeProfileUrl(j);
               const img = portraitHtml(j);
               const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
               const app = j.appointed_by && j.appointed_by !== "—" ? ` (${j.appointed_by})` : "";
@@ -852,7 +859,7 @@ function showPortraitPlaceholder(imgEl) {
                 '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
               sortedDcList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-                const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+                const url = judgeProfileUrl(j);
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
                 const party = presidentParty[j.appointed_by] || "";
@@ -871,7 +878,7 @@ function showPortraitPlaceholder(imgEl) {
                 '<tr>' + createSortableHeader('Portrait', '') + createSortableHeader('Name', 'name') + createSortableHeader('Appointed By', 'party') + createSortableHeader('Education', 'education') + '</tr>';
               sortedFedList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-                const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+                const url = judgeProfileUrl(j);
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
                 const party = presidentParty[j.appointed_by] || "";
@@ -893,7 +900,7 @@ function showPortraitPlaceholder(imgEl) {
 
               sortedList.forEach((j) => {
                 const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-                const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+                const url = judgeProfileUrl(j);
                 const img = portraitHtml(j);
                 const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
                 const party = presidentParty[j.appointed_by] || "";
@@ -946,7 +953,7 @@ function showPortraitPlaceholder(imgEl) {
 
             sortedActiveList.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-              const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+              const url = judgeProfileUrl(j);
               const img = portraitHtml(j);
               const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
               const party = presidentParty[j.appointed_by] || "";
@@ -964,7 +971,7 @@ function showPortraitPlaceholder(imgEl) {
 
             sortedSeniorList.forEach((j) => {
               const safeTitle = cleanWikiTitle(j.wiki_title || j.name);
-              const url = `https://en.wikipedia.org/wiki/${encodeURIComponent(safeTitle.replace(/ /g, "_"))}`;
+              const url = judgeProfileUrl(j);
               const img = portraitHtml(j);
               const nameLink = '<a href="' + url + '" target="_blank">' + j.name.replace(/`/g, "&#96;") + "</a>";
               const party = presidentParty[j.appointed_by] || "";
