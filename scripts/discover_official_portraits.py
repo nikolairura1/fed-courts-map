@@ -13,6 +13,10 @@ PAGES={
  "13762157":"https://www.ohsd.uscourts.gov/BioByrne",
  "13762108":"https://www.tnwd.uscourts.gov/content/judge-brian-lea",
  "13762122":"https://www.txwd.uscourts.gov/team/andrew-b-davis/",
+ "13762108":"https://www.tnwd.uscourts.gov/content/judge-brian-lea",
+ "13762124":"https://www.scd.uscourts.gov/Judges/distjudge.asp",
+ "13762214":"https://www.txnd.uscourts.gov/judge/judge-kasdin-mitchell",
+ "13762136":"https://www.ohnd.uscourts.gov/news/new-district-judge-michael-j-hendershot",
 }
 class Images(HTMLParser):
     def __init__(self):
