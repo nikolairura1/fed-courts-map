@@ -163,3 +163,16 @@ h1 {
   pointer-events: none;
 }
 
+
+/* Distinct active and senior appellate roster panels */
+.judge-roster-section {
+  border: 1px solid #c7cbd1;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 14px 0;
+  background: #fff;
+  overflow-x: auto;
+}
+.judge-roster-section h3 {
+  margin: 0 0 10px;
+}
