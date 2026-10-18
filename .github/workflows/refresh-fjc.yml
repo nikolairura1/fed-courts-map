@@ -1,6 +1,10 @@
 name: Refresh FJC judges
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/update_fjc.py'
+      - '.github/workflows/refresh-fjc.yml'
   schedule:
     - cron: '25 9 * * *'
 permissions:
