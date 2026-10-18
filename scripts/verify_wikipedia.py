@@ -85,12 +85,21 @@ def main():
     choices={}
     for j in records:
         options=[]
+        # Wikipedia commonly uses shorter public names than the FJC legal name.
+        known_titles = {
+            "Anna Elizabeth Wagner St. John": "Anna St. John",
+            "Andrew Bray Davis": "Andrew B. Davis",
+            "Nicholas Jon Ganjei": "Nicholas Ganjei",
+        }
+        if j["name"] in known_titles:
+            options.append(known_titles[j["name"]])
         if j.get("wikipedia_url_verified"):
             options.append(urllib.parse.unquote(j["wikipedia_url_verified"].split("/wiki/")[-1]).replace("_"," "))
         if j.get("wiki_title"):options.append(j["wiki_title"].replace("_"," "))
         words=j["name"].split()
         options.append(j["name"])
         if len(words)>2:
+            options.append(words[0]+" "+words[-1])
             options.append(words[0]+" "+words[1][0]+". "+" ".join(words[2:]))
             options.append(words[0]+" "+words[-1])
             options.append(words[0]+" "+words[1][0]+". "+words[-1]+" (judge)")
