@@ -12,48 +12,17 @@
     "Megan Blair Benton",
     "Kathleen Smithgall Lane",
     "Michael Jason Hendershot",
-    "Matthew Richard Byrne"
+    "Matthew Richard Byrne",
+    "Antonio Miguel Pozos",
+    "Sheria Akins Clarke",
+    "Brian Charles Lea",
+    "John George Edward Marck",
+    "Nicholas Jon Ganjei",
+    "Andrew Bray Davis",
+    "Christopher Robert Wolfe",
+    "Matthew Alexander Schwartz",
+    "Benjamin Michael Flowers",
+    "Justin Daniel Smith"
   ],
-  "errors": [
-    {
-      "name": "Antonio Miguel Pozos",
-      "error": "HTTP Error 429: Too Many Requests"
-    },
-    {
-      "name": "Sheria Akins Clarke",
-      "error": "HTTP Error 429: Too Many Requests"
-    },
-    {
-      "name": "Brian Charles Lea",
-      "error": "HTTP Error 429: Too Many Requests"
-    },
-    {
-      "name": "John George Edward Marck",
-      "error": "HTTP Error 429: Too Many Requests"
-    },
-    {
-      "name": "Nicholas Jon Ganjei",
-      "error": "HTTP Error 429: Too Many Requests"
-    },
-    {
-      "name": "Andrew Bray Davis",
-      "error": "HTTP Error 429: Too Many Requests"
-    },
-    {
-      "name": "Christopher Robert Wolfe",
-      "error": "HTTP Error 429: Too Many Requests"
-    },
-    {
-      "name": "Matthew Alexander Schwartz",
-      "error": "HTTP Error 429: Too Many Requests"
-    },
-    {
-      "name": "Benjamin Michael Flowers",
-      "error": "HTTP Error 429: Too Many Requests"
-    },
-    {
-      "name": "Justin Daniel Smith",
-      "error": "HTTP Error 429: Too Many Requests"
-    }
-  ]
+  "errors": []
 }
