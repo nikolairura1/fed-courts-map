@@ -41,7 +41,9 @@
   <h1>Map of the U.S. Federal Court System</h1>
 
   <div id="schoolSearch" style="margin-bottom: 20px;">
-    <input id="schoolInput" type="text" placeholder="Search judges by school" style="width: 300px; padding: 5px;">
+    <label for="schoolMode">Institutional connection:</label>
+    <select id="schoolMode" style="padding:5px;margin-right:7px;"><option value="education">Education (degrees)</option><option value="faculty">Teaching / faculty appointments</option></select>
+    <input id="schoolInput" type="text" placeholder="Search university or law school" style="width: 300px; padding: 5px;">
     <div id="suggestions" style="border: 1px solid #ccc; max-height: 200px; overflow-y: auto; display: none;"></div>
     <button id="searchBtn" style="padding: 5px 10px; margin-left: 10px;">Search</button>
     <button id="clearBtn" style="padding: 5px 10px; margin-left: 10px;">Clear</button>
