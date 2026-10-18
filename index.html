@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" />\n  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Federal Judges Map</title>
   <link rel="icon" href="favicon.png" type="image/png">
 
@@ -22,8 +22,8 @@
       cursor: pointer;
     }
     #districtMap, #circuitMap, #scotusMap {
-      height: 450px;
-      width: 900px;
+      height: clamp(320px, 55vh, 550px);
+      width: min(900px, calc(100vw - 32px));
       margin: 0 auto;
       border: 2px solid #333;
       border-radius: 5px;
