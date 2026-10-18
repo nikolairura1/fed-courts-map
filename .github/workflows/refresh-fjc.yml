@@ -5,6 +5,7 @@ on:
     paths:
       - 'scripts/update_fjc.py'
       - '.github/workflows/refresh-fjc.yml'
+      - 'scripts/verify_wikipedia.py'
   schedule:
     - cron: '25 9 * * *'
 permissions:
@@ -19,6 +20,8 @@ jobs:
           python-version: '3.12'
       - name: Reconcile current FJC records
         run: python scripts/update_fjc.py
+      - name: Verify judge Wikipedia article links
+        run: python scripts/verify_wikipedia.py
       - name: Commit reconciled roster
         run: |
           git config user.name "github-actions[bot]"
