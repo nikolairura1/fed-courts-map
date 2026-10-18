@@ -106,72 +106,33 @@ h1 {
   }
 }
 
-/* Curtain overlays */
-#topCurtain {
+/* Responsive theatre frame: images anchored to viewport edges, not fixed pixels. */
+:root { --curtain-top: clamp(115px, 17vw, 245px); --curtain-side: clamp(45px, 12vw, 190px); }
+body { padding-top: clamp(180px, 25vw, 300px); }
+#topCurtain, #leftCurtain, #rightCurtain,
+#topShadow, #leftShadow, #rightShadow {
   position: absolute;
-  top: -33px;
-  left: -97px;
-  width: 1510px;
-  height: 550px;
-  z-index: 1001;
   pointer-events: none;
+  height: auto;
+  max-width: none;
 }
-
-#leftCurtain {
-  position: absolute;
-  top: -123px;
-  left: -185px;
-  width: 2000px;
-  height: 1210px;
-  z-index: 1000;
-  pointer-events: none;
-}
-
-#rightCurtain {
-  position: absolute;
-  top: -131px;
-  left: -452px;
-  width: 2000px;
-  height: 1230px;
-  z-index: 1000;
-  pointer-events: none;
-}
-
-/* Curtain shadows */
-#topShadow {
-  position: absolute;
-  top: -30px;
-  left: -72px;
-  width: 1450px;
-  height: 300px;
-  z-index: 998;
-  pointer-events: none;
-  opacity: 0.4;
-  filter: blur(5px);
-}
-
-#leftShadow {
-  position: absolute;
-  top: -173px;
-  left: -520px;
-  width: 2000px;
-  height: 1230px;
-  z-index: 998;
-  pointer-events: none;
-  opacity: 0.4;
-  filter: blur(5px);
-}
-
-#rightShadow {
-  position: absolute;
-  top: -68px;
-  left: -168px;
-  width: 2000px;
-  height: 1140px;
-  z-index: 998;
-  pointer-events: none;
-  opacity: 0.4;
-  filter: blur(5px);
+#topCurtain { top: 0; left: 50%; transform: translateX(-50%); width: 100vw; z-index: 1001; }
+#topShadow { top: 0; left: 50%; transform: translateX(-50%); width: 100vw; z-index: 998; opacity: .4; filter: blur(5px); }
+#leftCurtain, #leftShadow { top: 0; left: 0; width: var(--curtain-side); }
+#rightCurtain, #rightShadow { top: 0; right: 0; width: var(--curtain-side); }
+#leftCurtain, #rightCurtain { z-index: 1000; }
+#leftShadow, #rightShadow { z-index: 998; opacity: .4; filter: blur(5px); }
+#eagleContainer { top: clamp(28px, 5vw, 70px); }
+#eagle, #eagleShadow { width: clamp(145px, 30vw, 432px); max-width: 80vw; }
+#districtMap, #circuitMap, #scotusMap { width: min(900px, calc(100vw - 32px)) !important; height: clamp(320px, 55vh, 550px) !important; }
+#schoolSearch { padding: 0 16px; }
+#schoolInput { max-width: calc(100vw - 48px); box-sizing: border-box; }
+#bottomSection { padding: 24px 16px 90px; }
+@media (max-width: 600px) {
+  body { padding-top: 190px; }
+  h1 { font-size: clamp(1.2rem, 6vw, 1.8rem); padding: 0 12px; }
+  #leftCurtain, #rightCurtain, #leftShadow, #rightShadow { width: clamp(35px, 11vw, 65px); }
+  #tabs button { padding: 8px !important; margin: 2px !important; }
 }
 
 /* Bottom banister */
