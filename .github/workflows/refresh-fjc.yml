@@ -28,8 +28,6 @@ jobs:
         run: python scripts/update_fjc.py
       - name: Verify judge Wikipedia article links
         run: python scripts/verify_wikipedia.py
-      - name: Identify official court biography portraits
-        run: python scripts/discover_official_portraits.py
       - name: Find public-domain official government photos on Wikimedia Commons
         run: python scripts/search_commons_official_portraits.py
       - name: Audit official photo provenance for recent appointments
