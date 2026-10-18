@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-10-18T16:49:19.404614+00:00",
+  "last_updated_utc": "2026-10-18T17:15:42.563281+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -26713,7 +26713,9 @@
           "court_type": "article_iii",
           "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Nanette_Kay_Laughrey",
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Nanette_Laughrey_District_Judge.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
-          "portrait_source": "wikipedia-pageimages"
+          "portrait_source": "wikipedia-pageimages",
+          "portrait_source_url": "https://en.wikipedia.org/wiki/Nanette_Kay_Laughrey",
+          "portrait_verified": false
         },
         {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Ortrie_Smith_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
@@ -54318,7 +54320,7 @@
           "court_type": "article_iii"
         },
         {
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/??/Edith_Jones.jpg",
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/39/Edith_Jones_in_Iraq_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
           "wiki_title": "Edith_Jones",
           "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Edith_Jones",
           "name": "Edith Hollan Jones",
@@ -54355,7 +54357,10 @@
             }
           ],
           "judicial_status": "active",
-          "court_type": "article_iii"
+          "court_type": "article_iii",
+          "portrait_source": "wikipedia-pageimages",
+          "portrait_source_url": "https://en.wikipedia.org/wiki/Edith_Jones",
+          "portrait_verified": false
         },
         {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Irma_Carrillo_Ramirez.jpg/250px-Irma_Carrillo_Ramirez.jpg",
@@ -57269,7 +57274,7 @@
           "court_type": "article_iii"
         },
         {
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/??/James_B._Loken.jpg",
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/James_Loken_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
           "wiki_title": "James_B._Loken",
           "wikipedia_url_verified": "https://en.wikipedia.org/wiki/James_B._Loken",
           "name": "James B. Loken",
@@ -57310,7 +57315,10 @@
             }
           ],
           "judicial_status": "active",
-          "court_type": "article_iii"
+          "court_type": "article_iii",
+          "portrait_source": "wikipedia-pageimages",
+          "portrait_source_url": "https://en.wikipedia.org/wiki/James_B._Loken",
+          "portrait_verified": false
         },
         {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Judge_Jane_Kelly_%28cropped%29.jpg/250px-Judge_Jane_Kelly_%28cropped%29.jpg",
@@ -57450,7 +57458,7 @@
           "court_type": "article_iii"
         },
         {
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/??/Lavenski_Smith.jpg",
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Lavenski_Smith_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
           "wiki_title": "Lavenski_Smith",
           "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Lavenski_Smith",
           "name": "Lavenski R. Smith",
@@ -57493,7 +57501,10 @@
             }
           ],
           "judicial_status": "active",
-          "court_type": "article_iii"
+          "court_type": "article_iii",
+          "portrait_source": "wikipedia-pageimages",
+          "portrait_source_url": "https://en.wikipedia.org/wiki/Lavenski_Smith",
+          "portrait_verified": false
         },
         {
           "wiki_title": "Leonard_Steven_Grasz",
