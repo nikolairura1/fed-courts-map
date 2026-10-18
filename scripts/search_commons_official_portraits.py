@@ -11,6 +11,7 @@ import re
 import time
 import urllib.parse
 import urllib.request
+import urllib.error
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parent.parent
@@ -36,8 +37,13 @@ def get(q):
         "prop":"imageinfo","iiprop":"url|extmetadata","iiurlwidth":280,
         "formatversion":2})
     req=urllib.request.Request(url,headers=HEADERS)
-    with urllib.request.urlopen(req,timeout=30) as resp:
-        return json.load(resp).get("query",{}).get("pages",[])
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(req,timeout=30) as resp:
+                return json.load(resp).get("query",{}).get("pages",[])
+        except urllib.error.HTTPError as exc:
+            if exc.code != 429 or attempt == 4:raise
+            time.sleep(min(60,8*(2**attempt)))
 def all_judges(data):
     for group in [*data["by_jdcode"].values(),*data["by_circuit"].values()]:
         yield from group.get("judges",[])
@@ -89,7 +95,7 @@ def main():
             elif distinct:ambiguous.append({"name":j["name"],"candidates":list(distinct.values())})
             else:none.append(j["name"])
         except Exception as e:errors.append({"name":j["name"],"error":str(e)[:150]})
-        time.sleep(.3)
+        time.sleep(3)
     if added:DATA.write_text(json.dumps(data,indent=2,ensure_ascii=False)+"\n",encoding="utf8")
     AUDIT.write_text(json.dumps({"added":added,"ambiguous":ambiguous,"no_public_government_image_found":none,"errors":errors},indent=2)+"\n",encoding="utf8")
     print(json.dumps({"added":len(added),"ambiguous":len(ambiguous),"no_match":len(none),"errors":len(errors)}))
