@@ -48291,8 +48291,25 @@
           "appointed_by": "Donald Trump",
           "assumed_office": "05/13/2019",
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Joseph_Frank_Bianco.JPG",
-          "education": null,
-          "wiki_title": "Joseph F. Bianco"
+          "education": "Georgetown University (B.A., 1988); Columbia Law School (J.D., 1991); Seminary of the Immaculate Conception (M.A., 2013)",
+          "wiki_title": "Joseph F. Bianco",
+          "education_items": [
+            {
+              "school": "Georgetown University",
+              "degree": "B.A.",
+              "year": 1988
+            },
+            {
+              "school": "Columbia Law School",
+              "degree": "J.D.",
+              "year": 1991
+            },
+            {
+              "school": "Seminary of the Immaculate Conception",
+              "degree": "M.A.",
+              "year": 2013
+            }
+          ]
         },
         {
           "name": "Michael H. Park",
@@ -48309,8 +48326,25 @@
           "appointed_by": "Donald Trump",
           "assumed_office": "11/14/2019",
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/William_Nardini_%28Judge%29_%28cropped%29.jpg",
-          "education": null,
-          "wiki_title": "William J. Nardini"
+          "education": "Georgetown University (A.B., 1990); Yale Law School (J.D., 1994); European University Institute (LL.M., 1998)",
+          "wiki_title": "William J. Nardini",
+          "education_items": [
+            {
+              "school": "Georgetown University",
+              "degree": "A.B.",
+              "year": 1990
+            },
+            {
+              "school": "Yale Law School",
+              "degree": "J.D.",
+              "year": 1994
+            },
+            {
+              "school": "European University Institute",
+              "degree": "LL.M.",
+              "year": 1998
+            }
+          ]
         },
         {
           "name": "Steven Menashi",
@@ -48327,8 +48361,20 @@
           "appointed_by": "Joe Biden",
           "assumed_office": "08/16/2021",
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Eunice_Lee.png",
-          "education": null,
-          "wiki_title": "Eunice C. Lee"
+          "education": "Ohio State University (B.A., 1993); Yale Law School (J.D., 1996)",
+          "wiki_title": "Eunice C. Lee",
+          "education_items": [
+            {
+              "school": "Ohio State University",
+              "degree": "B.A.",
+              "year": 1993
+            },
+            {
+              "school": "Yale Law School",
+              "degree": "J.D.",
+              "year": 1996
+            }
+          ]
         },
         {
           "name": "Beth Robinson",
@@ -48747,8 +48793,20 @@
           "appointed_by": "Donald Trump",
           "assumed_office": "",
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Cory_T._Wilson.jpg/250px-Cory_T._Wilson.jpg",
-          "education": "University of Mississippi (BA) University of Mississippi School of Law (JD)",
-          "wiki_title": "Cory T. Wilson"
+          "education": "University of Mississippi (B.B.A., 1992); Yale Law School (J.D., 1995)",
+          "wiki_title": "Cory T. Wilson",
+          "education_items": [
+            {
+              "school": "University of Mississippi",
+              "degree": "B.B.A.",
+              "year": 1992
+            },
+            {
+              "school": "Yale Law School",
+              "degree": "J.D.",
+              "year": 1995
+            }
+          ]
         },
         {
           "name": "Dana Douglas",
