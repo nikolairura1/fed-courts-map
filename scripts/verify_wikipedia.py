@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Validate Wikipedia pages against the MediaWiki API, never invent article URLs."""
+"""Validate Wikipedia pages against the MediaWiki API, never invent article URLs.
+
+Scheduled refresh runs this after importing current FJC biographies.
+"""
 import json
 import time
 import urllib.parse
