@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-10-23T14:18:02.161238+00:00",
+  "last_updated_utc": "2026-10-24T13:23:54.389492+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -46295,6 +46295,49 @@
           ],
           "judicial_status": "active",
           "court_type": "article_iii"
+        },
+        {
+          "name": "Angela Veronica Colmenero",
+          "status": "Active",
+          "appointed_by": "Donald J. Trump",
+          "assumed_office": "2026-10-22",
+          "education": "University of Texas (B.A., 2001); Notre Dame Law School (J.D., 2004)",
+          "education_items": [
+            {
+              "school": "University of Texas",
+              "degree": "B.A.",
+              "year": "2001"
+            },
+            {
+              "school": "Notre Dame Law School",
+              "degree": "J.D.",
+              "year": "2004"
+            }
+          ],
+          "professional_career": [
+            "Law clerk, Hon. A. Joe Fish, U.S. District Court for the Northern District of Texas, 2004-2005",
+            "Private practice, Dallas, Texas, 2005-2009",
+            "Assistant attorney general, State of Texas, 2009-2018; General Litigation Division, 2009-2011, 2012-2014; chief, 2015-2018; Special Litigation Division, 2011-2012; deputy chief, 2014-2015",
+            "Office of Gov. Greg Abbott, Texas, 2018-2026; deputy general counsel, 2018-2021; principal deputy general counsel, 2021-2023; deputy chief of staff, 2023, 2023-2026",
+            "Provisional attorney general, State of Texas, 2023"
+          ],
+          "academic_appointments": [],
+          "fjc_nid": "13762219",
+          "fjc_jid": "13762219",
+          "service": [
+            {
+              "court_type": "U.S. District Court",
+              "court": "U.S. District Court for the Southern District of Texas",
+              "appointing_president": "Donald J. Trump",
+              "commission_date": "2026-10-22",
+              "senior_status_date": "",
+              "termination_date": ""
+            }
+          ],
+          "judicial_status": "active",
+          "court_type": "article_iii",
+          "wiki_title": "Angela_Colmenero",
+          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Angela_Colmenero"
         },
         {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Arthur_%22Rob%22_Jones.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",

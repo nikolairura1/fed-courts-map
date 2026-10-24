@@ -1,10 +1,10 @@
 {
-  "as_of_utc": "2026-10-23T14:20:32.483804+00:00",
+  "as_of_utc": "2026-10-24T13:27:10.313538+00:00",
   "scope": "commission since 2025-01-01",
-  "number_of_judges": 64,
+  "number_of_judges": 65,
   "with_images": 43,
   "official_verified": 1,
-  "missing_images": 21,
+  "missing_images": 22,
   "judges": [
     {
       "fjc_nid": "13762106",
@@ -33,6 +33,17 @@
       "name": "Andrew Bray Davis",
       "court": "U.S. District Court for the Western District of Texas",
       "commission": "2026-04-30",
+      "image_url": null,
+      "portrait_source": null,
+      "portrait_source_url": null,
+      "official_verified": false,
+      "status": "missing-image"
+    },
+    {
+      "fjc_nid": "13762219",
+      "name": "Angela Veronica Colmenero",
+      "court": "U.S. District Court for the Southern District of Texas",
+      "commission": "2026-10-22",
       "image_url": null,
       "portrait_source": null,
       "portrait_source_url": null,
