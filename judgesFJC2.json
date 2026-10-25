@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-10-24T13:23:54.389492+00:00",
+  "last_updated_utc": "2026-10-25T13:46:00.349153+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -46297,6 +46297,8 @@
           "court_type": "article_iii"
         },
         {
+          "wiki_title": "Angela_Colmenero",
+          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Angela_Colmenero",
           "name": "Angela Veronica Colmenero",
           "status": "Active",
           "appointed_by": "Donald J. Trump",
@@ -46335,9 +46337,7 @@
             }
           ],
           "judicial_status": "active",
-          "court_type": "article_iii",
-          "wiki_title": "Angela_Colmenero",
-          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Angela_Colmenero"
+          "court_type": "article_iii"
         },
         {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Arthur_%22Rob%22_Jones.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
