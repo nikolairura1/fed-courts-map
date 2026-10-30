@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-10-29T16:15:07.631791+00:00",
+  "last_updated_utc": "2026-10-30T16:00:11.961767+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -34469,7 +34469,11 @@
             }
           ],
           "judicial_status": "senior",
-          "court_type": "article_iii"
+          "court_type": "article_iii",
+          "image_url": "https://upload.wikimedia.org/wikipedia/en/2/22/Alvin_Hellerstein.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+          "portrait_source": "wikipedia-pageimages",
+          "portrait_source_url": "https://en.wikipedia.org/wiki/Alvin_Hellerstein",
+          "portrait_verified": false
         },
         {
           "wiki_title": "Cathy_Seibel",
