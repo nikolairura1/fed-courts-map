@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-10-30T16:00:11.961767+00:00",
+  "last_updated_utc": "2026-10-31T15:23:48.697725+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -34431,51 +34431,6 @@
       ],
       "senior_judges": [
         {
-          "wiki_title": "Alvin_Hellerstein",
-          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Alvin_Hellerstein",
-          "name": "Alvin K. Hellerstein",
-          "status": "Senior",
-          "appointed_by": "William J. Clinton",
-          "assumed_office": "1998-10-22",
-          "education": "Columbia College (B.A., 1954); Columbia Law School (J.D., 1956)",
-          "education_items": [
-            {
-              "school": "Columbia College",
-              "degree": "B.A.",
-              "year": "1954"
-            },
-            {
-              "school": "Columbia Law School",
-              "degree": "J.D.",
-              "year": "1956"
-            }
-          ],
-          "professional_career": [
-            "Law clerk, Hon. Edmund Palmieri, U.S. District Court, Southern District of New York, 1956-1957",
-            "U.S. Army, JAG Corps, 1957-1960",
-            "Private practice, New York City, 1960-1998"
-          ],
-          "academic_appointments": [],
-          "fjc_nid": "1390806",
-          "fjc_jid": "2794",
-          "service": [
-            {
-              "court_type": "U.S. District Court",
-              "court": "U.S. District Court for the Southern District of New York",
-              "appointing_president": "William J. Clinton",
-              "commission_date": "1998-10-22",
-              "senior_status_date": "2011-01-30",
-              "termination_date": ""
-            }
-          ],
-          "judicial_status": "senior",
-          "court_type": "article_iii",
-          "image_url": "https://upload.wikimedia.org/wikipedia/en/2/22/Alvin_Hellerstein.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
-          "portrait_source": "wikipedia-pageimages",
-          "portrait_source_url": "https://en.wikipedia.org/wiki/Alvin_Hellerstein",
-          "portrait_verified": false
-        },
-        {
           "wiki_title": "Cathy_Seibel",
           "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Cathy_Seibel",
           "name": "Cathy Seibel",
@@ -61359,48 +61314,6 @@
             }
           ],
           "judicial_status": "active",
-          "court_type": "article_iii"
-        },
-        {
-          "wiki_title": "Michael_Joseph_Melloy",
-          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Michael_Joseph_Melloy",
-          "name": "Michael Joseph Melloy",
-          "status": "Senior",
-          "appointed_by": "George W. Bush",
-          "assumed_office": "2002-02-14",
-          "education": "Loras College (B.A., 1970); University of Iowa College of Law (J.D., 1974)",
-          "education_items": [
-            {
-              "school": "Loras College",
-              "degree": "B.A.",
-              "year": "1970"
-            },
-            {
-              "school": "University of Iowa College of Law",
-              "degree": "J.D.",
-              "year": "1974"
-            }
-          ],
-          "professional_career": [
-            "U.S. Army, 1970-1972",
-            "U.S. Army Reserve, 1972-1976",
-            "Private practice, Dubuque, Iowa, 1974-1986",
-            "Board member, Federal Judicial Center, 2012-2016"
-          ],
-          "academic_appointments": [],
-          "fjc_nid": "1384996",
-          "fjc_jid": "1616",
-          "service": [
-            {
-              "court_type": "U.S. Court of Appeals",
-              "court": "U.S. Court of Appeals for the Eighth Circuit",
-              "appointing_president": "George W. Bush",
-              "commission_date": "2002-02-14",
-              "senior_status_date": "2013-02-01",
-              "termination_date": ""
-            }
-          ],
-          "judicial_status": "senior",
           "court_type": "article_iii"
         },
         {
