@@ -2,6 +2,12 @@
   "district_active": 655,
   "district_senior": 488,
   "appellate_and_scotus": 310,
-  "unmatched": [],
+  "unmatched": [
+    {
+      "reason": "no commission date",
+      "name": "Cook, Gregory Carl",
+      "court": "U.S. District Court for the Northern District of Alabama"
+    }
+  ],
   "excluded_future": 0
 }
