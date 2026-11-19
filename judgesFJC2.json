@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-11-18T18:11:36.544580+00:00",
+  "last_updated_utc": "2026-11-19T18:23:11.293125+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -44065,49 +44065,6 @@
           "court_type": "article_iii"
         },
         {
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Thomas_A._Varlan.jpg",
-          "wiki_title": "Thomas_A._Varlan",
-          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Thomas_A._Varlan",
-          "name": "Thomas A. Varlan",
-          "status": "Active",
-          "appointed_by": "George W. Bush",
-          "assumed_office": "2003-03-14",
-          "education": "University of Tennessee (B.A., 1978); Vanderbilt University Law School (J.D., 1981)",
-          "education_items": [
-            {
-              "school": "University of Tennessee",
-              "degree": "B.A.",
-              "year": "1978"
-            },
-            {
-              "school": "Vanderbilt University Law School",
-              "degree": "J.D.",
-              "year": "1981"
-            }
-          ],
-          "professional_career": [
-            "Private practice, Atlanta, Georgia, 1981-1987",
-            "City law director, Knoxville, Tennessee, 1988-1998",
-            "Private practice, Knoxville, Tennessee, 1998-2003",
-            "Member, Judicial Conference of the United States, 2010-2013"
-          ],
-          "academic_appointments": [],
-          "fjc_nid": "1391756",
-          "fjc_jid": "2984",
-          "service": [
-            {
-              "court_type": "U.S. District Court",
-              "court": "U.S. District Court for the Eastern District of Tennessee",
-              "appointing_president": "George W. Bush",
-              "commission_date": "2003-03-14",
-              "senior_status_date": "",
-              "termination_date": ""
-            }
-          ],
-          "judicial_status": "active",
-          "court_type": "article_iii"
-        },
-        {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Travis_Randall_McDonough.jpg/250px-Travis_Randall_McDonough.jpg",
           "wiki_title": "Travis_R._McDonough",
           "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Travis_R._McDonough",
@@ -44275,6 +44232,49 @@
               "appointing_president": "Ronald Reagan",
               "commission_date": "1985-04-16",
               "senior_status_date": "2005-10-07",
+              "termination_date": ""
+            }
+          ],
+          "judicial_status": "senior",
+          "court_type": "article_iii"
+        },
+        {
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Thomas_A._Varlan.jpg",
+          "wiki_title": "Thomas_A._Varlan",
+          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Thomas_A._Varlan",
+          "name": "Thomas A. Varlan",
+          "status": "Senior",
+          "appointed_by": "George W. Bush",
+          "assumed_office": "2003-03-14",
+          "education": "University of Tennessee (B.A., 1978); Vanderbilt University Law School (J.D., 1981)",
+          "education_items": [
+            {
+              "school": "University of Tennessee",
+              "degree": "B.A.",
+              "year": "1978"
+            },
+            {
+              "school": "Vanderbilt University Law School",
+              "degree": "J.D.",
+              "year": "1981"
+            }
+          ],
+          "professional_career": [
+            "Private practice, Atlanta, Georgia, 1981-1987",
+            "City law director, Knoxville, Tennessee, 1988-1998",
+            "Private practice, Knoxville, Tennessee, 1998-2003",
+            "Member, Judicial Conference of the United States, 2010-2013"
+          ],
+          "academic_appointments": [],
+          "fjc_nid": "1391756",
+          "fjc_jid": "2984",
+          "service": [
+            {
+              "court_type": "U.S. District Court",
+              "court": "U.S. District Court for the Eastern District of Tennessee",
+              "appointing_president": "George W. Bush",
+              "commission_date": "2003-03-14",
+              "senior_status_date": "2026-10-05",
               "termination_date": ""
             }
           ],
