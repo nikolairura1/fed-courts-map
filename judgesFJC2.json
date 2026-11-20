@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-11-19T18:23:11.293125+00:00",
+  "last_updated_utc": "2026-11-20T17:53:30.706392+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -65137,7 +65137,7 @@
           "wiki_title": "Timothy_Tymkovich",
           "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Timothy_Tymkovich",
           "name": "Timothy M. Tymkovich",
-          "status": "Active",
+          "status": "Senior",
           "appointed_by": "George W. Bush",
           "assumed_office": "2003-04-01",
           "education": "Colorado College (B.A., 1979); University of Colorado Law School (J.D., 1982)",
@@ -65169,11 +65169,11 @@
               "court": "U.S. Court of Appeals for the Tenth Circuit",
               "appointing_president": "George W. Bush",
               "commission_date": "2003-04-01",
-              "senior_status_date": "",
+              "senior_status_date": "2026-11-16",
               "termination_date": ""
             }
           ],
-          "judicial_status": "active",
+          "judicial_status": "senior",
           "court_type": "article_iii"
         },
         {
