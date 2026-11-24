@@ -1,10 +1,10 @@
 {
-  "as_of_utc": "2026-11-23T21:37:22.810120+00:00",
+  "as_of_utc": "2026-11-24T20:17:21.428908+00:00",
   "scope": "commission since 2025-01-01",
-  "number_of_judges": 65,
-  "with_images": 43,
+  "number_of_judges": 67,
+  "with_images": 44,
   "official_verified": 1,
-  "missing_images": 22,
+  "missing_images": 23,
   "judges": [
     {
       "fjc_nid": "13762106",
@@ -183,6 +183,17 @@
       "status": "image-unverified"
     },
     {
+      "fjc_nid": "6273446",
+      "name": "Daniel Desmond Domenico",
+      "court": "U.S. Court of Appeals for the Tenth Circuit",
+      "commission": "2026-11-20",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Daniel_Domenico_portrait.jpg",
+      "portrait_source": "legacy-unknown",
+      "portrait_source_url": null,
+      "official_verified": false,
+      "status": "image-unverified"
+    },
+    {
       "fjc_nid": "7544351",
       "name": "Daniel Mack Traynor",
       "court": "U.S. Court of Appeals for the Eighth Circuit",
@@ -280,6 +291,17 @@
       "portrait_source_url": null,
       "official_verified": false,
       "status": "image-unverified"
+    },
+    {
+      "fjc_nid": "13762238",
+      "name": "Gregory Carl Cook",
+      "court": "U.S. District Court for the Northern District of Alabama",
+      "commission": "2026-11-20",
+      "image_url": null,
+      "portrait_source": null,
+      "portrait_source_url": null,
+      "official_verified": false,
+      "status": "missing-image"
     },
     {
       "fjc_nid": "13762066",

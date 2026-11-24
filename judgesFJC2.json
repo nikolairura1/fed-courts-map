@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-11-23T21:32:00.063125+00:00",
+  "last_updated_utc": "2026-11-24T20:14:09.921205+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -1753,6 +1753,54 @@
           ],
           "judicial_status": "active",
           "court_type": "article_iii"
+        },
+        {
+          "name": "Gregory Carl Cook",
+          "status": "Active",
+          "appointed_by": "Donald J. Trump",
+          "assumed_office": "2026-11-20",
+          "education": "Duke University (B.A., 1984); Harvard Law School (J.D., 1991)",
+          "education_items": [
+            {
+              "school": "Duke University",
+              "degree": "B.A.",
+              "year": "1984"
+            },
+            {
+              "school": "Harvard Law School",
+              "degree": "J.D.",
+              "year": "1991"
+            }
+          ],
+          "professional_career": [
+            "U.S. Air Force captain, 1984-1988",
+            "U.S. Air Force Reserve captain, 1988-1992",
+            "Private practice, Birmingham, Alabama, 1991-2023",
+            "Associate justice, Supreme Court of Alabama, 2023-",
+            "Adjunct professor, University of Alabama Law School, 2025-"
+          ],
+          "academic_appointments": [
+            {
+              "description": "Adjunct professor, University of Alabama Law School, 2025-",
+              "source": "FJC professional career"
+            }
+          ],
+          "fjc_nid": "13762238",
+          "fjc_jid": "13762238",
+          "service": [
+            {
+              "court_type": "U.S. District Court",
+              "court": "U.S. District Court for the Northern District of Alabama",
+              "appointing_president": "Donald J. Trump",
+              "commission_date": "2026-11-20",
+              "senior_status_date": "",
+              "termination_date": ""
+            }
+          ],
+          "judicial_status": "active",
+          "court_type": "article_iii",
+          "wiki_title": "Gregory_Cook_(judge)",
+          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Gregory_Cook_(judge)"
         },
         {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Harold_Mooty.png/250px-Harold_Mooty.png",
@@ -9186,57 +9234,6 @@
               "court": "U.S. District Court for the District of Colorado",
               "appointing_president": "Joseph R. Biden",
               "commission_date": "2022-07-18",
-              "senior_status_date": "",
-              "termination_date": ""
-            }
-          ],
-          "judicial_status": "active",
-          "court_type": "article_iii"
-        },
-        {
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Daniel_Domenico_portrait.jpg",
-          "wiki_title": "Daniel_D._Domenico",
-          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Daniel_D._Domenico",
-          "name": "Daniel Desmond Domenico",
-          "status": "Active",
-          "appointed_by": "Donald J. Trump",
-          "assumed_office": "2019-05-07",
-          "education": "Georgetown University (B.A., 1995); University of Virginia School of Law (J.D., 2000)",
-          "education_items": [
-            {
-              "school": "Georgetown University",
-              "degree": "B.A.",
-              "year": "1995"
-            },
-            {
-              "school": "University of Virginia School of Law",
-              "degree": "J.D.",
-              "year": "2000"
-            }
-          ],
-          "professional_career": [
-            "Private practice, Denver, Colorado, 2000-2003",
-            "Law clerk, Hon. Timothy M. Tymkovich, U.S. Court of Appeals for the Tenth Circuit, 2003-2004",
-            "Counsel, Thune for Senate, 2004",
-            "Special assistant to the solicitor, U.S. Department of the Interior, 2005-2006",
-            "Solicitor general, State of Colorado, 2006-2015",
-            "Adjunct professor, University of Denver Sturm College of Law, 2010-",
-            "Private practice, Golden, Colorado, 2015-2019"
-          ],
-          "academic_appointments": [
-            {
-              "description": "Adjunct professor, University of Denver Sturm College of Law, 2010-",
-              "source": "FJC professional career"
-            }
-          ],
-          "fjc_nid": "6273446",
-          "fjc_jid": "6273446",
-          "service": [
-            {
-              "court_type": "U.S. District Court",
-              "court": "U.S. District Court for the District of Colorado",
-              "appointing_president": "Donald J. Trump",
-              "commission_date": "2019-05-07",
               "senior_status_date": "",
               "termination_date": ""
             }
@@ -64385,6 +64382,57 @@
               "court": "U.S. Court of Appeals for the Tenth Circuit",
               "appointing_president": "Barack Obama",
               "commission_date": "2014-03-14",
+              "senior_status_date": "",
+              "termination_date": ""
+            }
+          ],
+          "judicial_status": "active",
+          "court_type": "article_iii"
+        },
+        {
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Daniel_Domenico_portrait.jpg",
+          "wiki_title": "Daniel_D._Domenico",
+          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Daniel_D._Domenico",
+          "name": "Daniel Desmond Domenico",
+          "status": "Active",
+          "appointed_by": "Donald J. Trump",
+          "assumed_office": "2026-11-20",
+          "education": "Georgetown University (B.A., 1995); University of Virginia School of Law (J.D., 2000)",
+          "education_items": [
+            {
+              "school": "Georgetown University",
+              "degree": "B.A.",
+              "year": "1995"
+            },
+            {
+              "school": "University of Virginia School of Law",
+              "degree": "J.D.",
+              "year": "2000"
+            }
+          ],
+          "professional_career": [
+            "Private practice, Denver, Colorado, 2000-2003",
+            "Law clerk, Hon. Timothy M. Tymkovich, U.S. Court of Appeals for the Tenth Circuit, 2003-2004",
+            "Counsel, Thune for Senate, 2004",
+            "Special assistant to the solicitor, U.S. Department of the Interior, 2005-2006",
+            "Solicitor general, State of Colorado, 2006-2015",
+            "Adjunct professor, University of Denver Sturm College of Law, 2010-",
+            "Private practice, Golden, Colorado, 2015-2019"
+          ],
+          "academic_appointments": [
+            {
+              "description": "Adjunct professor, University of Denver Sturm College of Law, 2010-",
+              "source": "FJC professional career"
+            }
+          ],
+          "fjc_nid": "6273446",
+          "fjc_jid": "6273446",
+          "service": [
+            {
+              "court_type": "U.S. Court of Appeals",
+              "court": "U.S. Court of Appeals for the Tenth Circuit",
+              "appointing_president": "Donald J. Trump",
+              "commission_date": "2026-11-20",
               "senior_status_date": "",
               "termination_date": ""
             }
