@@ -1,9 +1,9 @@
 {
-  "as_of_utc": "2026-11-24T20:17:21.428908+00:00",
+  "as_of_utc": "2026-11-25T19:30:23.544290+00:00",
   "scope": "commission since 2025-01-01",
-  "number_of_judges": 67,
-  "with_images": 44,
-  "official_verified": 1,
+  "number_of_judges": 68,
+  "with_images": 45,
+  "official_verified": 2,
   "missing_images": 23,
   "judges": [
     {
@@ -599,6 +599,17 @@
       "portrait_source_url": null,
       "official_verified": false,
       "status": "image-unverified"
+    },
+    {
+      "fjc_nid": "13762239",
+      "name": "Richard Wesley Bennett",
+      "court": "U.S. District Court for the Southern District of Texas",
+      "commission": "2026-11-23",
+      "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Richard_D_Bennett.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "portrait_source": "federal-government-via-wikimedia-commons",
+      "portrait_source_url": "https://commons.wikimedia.org/wiki/File:Richard_D_Bennett.jpg",
+      "official_verified": true,
+      "status": "official-verified"
     },
     {
       "fjc_nid": "13762093",

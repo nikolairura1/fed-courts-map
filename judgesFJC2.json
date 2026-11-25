@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-11-24T20:14:09.921205+00:00",
+  "last_updated_utc": "2026-11-25T19:25:52.241370+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -1755,6 +1755,8 @@
           "court_type": "article_iii"
         },
         {
+          "wiki_title": "Gregory_Cook_(judge)",
+          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Gregory_Cook_(judge)",
           "name": "Gregory Carl Cook",
           "status": "Active",
           "appointed_by": "Donald J. Trump",
@@ -1798,9 +1800,7 @@
             }
           ],
           "judicial_status": "active",
-          "court_type": "article_iii",
-          "wiki_title": "Gregory_Cook_(judge)",
-          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Gregory_Cook_(judge)"
+          "court_type": "article_iii"
         },
         {
           "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Harold_Mooty.png/250px-Harold_Mooty.png",
@@ -46990,6 +46990,57 @@
           ],
           "judicial_status": "active",
           "court_type": "article_iii"
+        },
+        {
+          "name": "Richard Wesley Bennett",
+          "status": "Active",
+          "appointed_by": "Donald J. Trump",
+          "assumed_office": "2026-11-23",
+          "education": "Texas Christian University (B.A., 1997); Southern Methodist University School of Law (now Dedman School of Law) (J.D., 2000)",
+          "education_items": [
+            {
+              "school": "Texas Christian University",
+              "degree": "B.A.",
+              "year": "1997"
+            },
+            {
+              "school": "Southern Methodist University School of Law (now Dedman School of Law)",
+              "degree": "J.D.",
+              "year": "2000"
+            }
+          ],
+          "professional_career": [
+            "Assistant district attorney, Galveston County, Texas, 2000-2003",
+            "Law clerk, Hon. Marcia A. Crone, U.S. District Court for the Southern District of Texas, 2003-2004",
+            "Law clerk, Hon. Marcia A. Crone, U.S. District Court for the Eastern District of Texas, 2004-2005",
+            "Private practice, Houston, Texas, 2005-2006, 2009-2010",
+            "Assistant U.S. attorney, Western District of Texas, 2006-2009",
+            "Assistant chief counsel, U.S. Immigration and Customs Enforcement, 2010-2016",
+            "Assistant U.S. attorney, Southern District of Texas, 2014-2024; special assistant U.S. attorney, 2014-2016 (on detail)"
+          ],
+          "academic_appointments": [],
+          "fjc_nid": "13762239",
+          "fjc_jid": "13762239",
+          "service": [
+            {
+              "court_type": "U.S. District Court",
+              "court": "U.S. District Court for the Southern District of Texas",
+              "appointing_president": "Donald J. Trump",
+              "commission_date": "2026-11-23",
+              "senior_status_date": "",
+              "termination_date": ""
+            }
+          ],
+          "judicial_status": "active",
+          "court_type": "article_iii",
+          "wiki_title": "Richard_W._Bennett",
+          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Richard_W._Bennett",
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Richard_D_Bennett.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "portrait_source": "federal-government-via-wikimedia-commons",
+          "portrait_source_url": "https://commons.wikimedia.org/wiki/File:Richard_D_Bennett.jpg",
+          "portrait_attribution": "US Court of Appeals for the Ninth Circuit",
+          "portrait_license": "Public domain",
+          "portrait_verified": true
         }
       ],
       "senior_judges": [
