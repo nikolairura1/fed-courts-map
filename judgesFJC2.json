@@ -18,7 +18,7 @@
     ],
     "court_type": "territorial"
   },
-  "last_updated_utc": "2026-11-25T19:25:52.241370+00:00",
+  "last_updated_utc": "2026-11-26T19:08:07.333144+00:00",
   "source": "Federal Judicial Center, Biographical Directory of Article III Federal Judges (CSV export)",
   "by_jdcode": {
     "0": {
@@ -46992,6 +46992,13 @@
           "court_type": "article_iii"
         },
         {
+          "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Richard_D_Bennett.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "wiki_title": "Richard_W._Bennett",
+          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Richard_W._Bennett",
+          "portrait_source": "federal-government-via-wikimedia-commons",
+          "portrait_source_url": "https://commons.wikimedia.org/wiki/File:Richard_D_Bennett.jpg",
+          "portrait_verified": true,
+          "portrait_attribution": "US Court of Appeals for the Ninth Circuit",
           "name": "Richard Wesley Bennett",
           "status": "Active",
           "appointed_by": "Donald J. Trump",
@@ -47032,15 +47039,7 @@
             }
           ],
           "judicial_status": "active",
-          "court_type": "article_iii",
-          "wiki_title": "Richard_W._Bennett",
-          "wikipedia_url_verified": "https://en.wikipedia.org/wiki/Richard_W._Bennett",
-          "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Richard_D_Bennett.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
-          "portrait_source": "federal-government-via-wikimedia-commons",
-          "portrait_source_url": "https://commons.wikimedia.org/wiki/File:Richard_D_Bennett.jpg",
-          "portrait_attribution": "US Court of Appeals for the Ninth Circuit",
-          "portrait_license": "Public domain",
-          "portrait_verified": true
+          "court_type": "article_iii"
         }
       ],
       "senior_judges": [
